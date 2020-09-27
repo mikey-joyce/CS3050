@@ -1,36 +1,26 @@
 
-// functions list
-
-
-
+// functions list, receiving and return types
 
 Create list
 receive integer (after finding the largest number in the file)
 return initialized empty list
+
 Create Node 
 receive full list and 2 integers
 receive integers to input to node
 return newNode
 
-
-
 Add node to list 
 call createNode
 return head node for list, set nextPtr null
-
-
 
 Read file function (if needed)
 Make sure not null
 return fPtr
 
-
-
 Print function
 Receive full list
 return void
-
-
 
 Compare function (for prevNode and curNode
 Receive prevNode and curNode
@@ -39,50 +29,22 @@ return true or false
 
 
 
+1. Read from file
 
+2. Loop through to find the largest value
 
+3. Initialize the first column of the linked list (adjacency list)
 
+4. Vertice pairs w/ edges
 
+5. 1 to n pairs
 
+6. Create list
 
+7. Add node
 
+8. Initialize a curNode and prevNode to track sizes
 
+9. if() to compare and check increasing order with values of curNode and prevNode
 
-Read from file
-
-
-Loop through to find the largest value
-
-
-Initialize the first column of the linked list (adjacency list)
-
-
-
-
-
-
-
-
-
-
-
-Vertice pairs w/ edges
-
-
-1 to n pairs
-
-
-Create list
-
-
-Add node
-
-
-Initialize a curNode and prevNode to track sizes
-
-
-if() to compare and check increasing order with values of curNode and prevNode
-
-
-Check to ensure pair does not repeat
-
+10. Check to ensure pair does not repeat

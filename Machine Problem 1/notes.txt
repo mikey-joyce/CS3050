@@ -1,22 +1,88 @@
+
 // functions list
-Create list - return initialized empty list
-Add node to list - return nextPtr for list
-Read file function (if needed) - return fPtr
-Print function - return void
-Compare function (for prevNode and curNode) - return true or false
 
 
-/*Read from file*/
-/*Loop through to find the largest value*/
-/*Initialize the first column of the linked list (adjacency list)*/
-/**/
 
-Vertice pairs w edges
-1 to n pairs
+
 Create list
-Add node
-Initialize a curNode and prevNode to track sizes
-if() to compare and check increasing order with values of curNode and prevNode
-Check to ensure pair does not repeat
+receive integer (after finding the largest number in the file)
+return initialized empty list
+Create Node 
+receive full list and 2 integers
+receive integers to input to node
+return newNode
 
+
+
+Add node to list 
+call createNode
+return head node for list, set nextPtr null
+
+
+
+Read file function (if needed)
+Make sure not null
+return fPtr
+
+
+
+Print function
+Receive full list
+return void
+
+
+
+Compare function (for prevNode and curNode
+Receive prevNode and curNode
+return true or false
+
+
+
+
+
+
+
+
+
+
+
+
+
+Read from file
+
+
+Loop through to find the largest value
+
+
+Initialize the first column of the linked list (adjacency list)
+
+
+
+
+
+
+
+
+
+
+
+Vertice pairs w/ edges
+
+
+1 to n pairs
+
+
+Create list
+
+
+Add node
+
+
+Initialize a curNode and prevNode to track sizes
+
+
+if() to compare and check increasing order with values of curNode and prevNode
+
+
+Check to ensure pair does not repeat
 

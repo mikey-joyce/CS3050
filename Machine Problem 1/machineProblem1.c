@@ -7,9 +7,7 @@ Tasha Ogoti
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
 //linked list structs
-
 typedef struct Node{
   int data;
   struct Node *next;
@@ -21,7 +19,6 @@ typedef struct List{
 }List;
 
 //graph structs
-
 typedef struct Edge{
   struct Vertex *vertex;
 }Edge;
@@ -35,9 +32,8 @@ typedef struct Graph{
   struct List *vertices;
 }Graph;
 
-*/
-
-//Prototypes
+//Prototypes for linked list
+//readFile(); //might be a double pointer of type Node but unsure of this
 List initList();//this will just set to null in the function to initialize an empty list
 Node createNode(int);//create a node in our linked list
 int enQueue(List*,int);//use a queue for the list
@@ -45,18 +41,19 @@ Node *deQueue(List*);
 void printList(List*);//prints it out in the correct order
 void freeList(List*);//frees our memory
 
-typedef struct node
-{
-	int data;
-	struct node * next;
-}Node;
+//Prototypes for graph
+int compareEdges(Edge*, Edge*);
+void addVertex(Graph*, Vertex*);
+void removeVertex(Graph*, Vertex*);
+void addEdge(Vertex*, Edge*);
+void removeEdge(Vertex*, Edge*);
+void addEdge_toVertex(Vertex*, Vertex*);
+void freeGraph(Graph*);
+void freeVertex(Vertex*);
+//maybe 2 more functions to sort vertices and edges? we will see if we need it later
 
-typedef struct list
-{
-	struct node * graph;
-}List;
-
-//?
+//The code in this comment needs to be adapted to the above code
+/*
 struct adjList ** initList(int size)
 {
   struct adjList **headNode;
@@ -129,6 +126,7 @@ void freeNodes(struct adjList ** headNode)
 {
 
 }
+*/
 
 int main()
 {

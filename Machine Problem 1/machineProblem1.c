@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
 
 typedef struct node
 {
@@ -7,29 +7,33 @@ typedef struct node
 	struct node *next;
 }Node;
 
-struct adjList
+typedef struct list
 {
 	struct node * graph;
-};
+}List;
 
-struct adjList * initList(int size)
+struct adjList ** initList(int size)
 {
-  struct adjList *headNode;
-  headNode = (struct adjList*)malloc(size*sizeof(struct adjList));
-  if(headNode==NULL)
+  struct adjList **headNode;
+  headNode = (struct adjList**)malloc(size*sizeof(struct adjList));
+  if(headNode == NULL)
   {
-    printf("Error at initList function");
+    printf("List could not be initialized");
+    free(headNode); // free allocated node
   }
-  return headNode;
+  else
+  {
+    return headNode;
+  }
 }
 
-readFile()
+readFile(FILE * fPtr)
 {
-  fscanf();
+  fscanf(fPtr, "");
 	return fPtr;
 }
 
-struct adjList* createNode(struct adjList** headNode, int a, int b)
+struct adjList** createNode(struct adjList** headNode, int a, int b)
 {
 	return newNode;
 }
@@ -39,7 +43,7 @@ addNode()
   createNode(struct adjList ** headNode, int a, int b);	
 }
 
-int compare(Node * prevNode, Node * curNode)
+int compare(struct node * prevNode, struct node * curNode)
 {
 	// compare node for inc size	
   if(prevNode==NULL || curNode==NULL)
@@ -61,23 +65,31 @@ void printList(struct adjList ** headNode)
     return;
   }
 
-  for(int i=0; headNode[i]->graph->next==NULL;i++)
+  //Loop through the adjacency list to print out the vertices 
+  for(int i=0; Node * headNode[i]->graph->next == NULL;i++)
   {
-    
+    //
+    while( headNode[i]->graph->next != NULL)
+    {
+      headNode[i]->graph=headNode[i]->graph->next;
+      int value=headNode[i]->graph->data;
+      printf("%d",value);;
+    }
+    printf("\n");
   }
 	return;
 }
 
-freeNodes(Node ** headNode)
+void freeNodes(struct adjList ** headNode)
 {
 
 }
 
 int main()
 {
-  FILE * fPtr = fopen("graph.txt");
-  fPtr.readFile(fPtr);
-  fclose(fPtr);
+  FILE * fPtr = fopen("graph.txt"); // open file for reading
+  readFile(fPtr); // read file
+  fclose(fPtr); // close file
 
-  freeNodes(Node ** headNode);
+  freeNodes(struct adjList ** headNode); // free all allocated nodes/full list
 }

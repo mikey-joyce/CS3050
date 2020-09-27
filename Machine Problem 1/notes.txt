@@ -1,8 +1,8 @@
 // functions list
 Create list - return initialized empty list
 Add node to list - void
-Read file function (if needed)
-Print function
+Read file function (if needed) - return fPtr
+Print function - void
 Compare function - for prevNode and curNode
 
 

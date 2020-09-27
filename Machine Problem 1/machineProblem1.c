@@ -1,15 +1,12 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
 
-struct node
-{
+typedef struct node{
 	int data;
-	struct node * next;
-};
+	struct node *next;
+}Node;
 
-struct adjList
-{
-	struct node * graph;
+struct adjList{
+	struct node *graph;
 };
 
 struct adjList* initList(int size)
@@ -20,7 +17,7 @@ struct adjList* initList(int size)
   {
     printf("Error at initList function");
   }
-  return *headNode;
+  return headNode;
 }
 
 readFile()
@@ -28,7 +25,7 @@ readFile()
 	return fPtr;
 }
 
-createNode(Node * headNode, int a, int b)
+struct adjList* createNode(struct adjList* headNode, int a, int b)
 {
 	return newNode;
 }
@@ -38,7 +35,7 @@ addNode()
      createNode	
 }
 
-compare(Node * prevNode, Node * curNode)
+bool compare(Node * prevNode, Node * curNode)
 {
 	// compare node for inc size	
 }
@@ -48,3 +45,9 @@ printList(Node * headNode)
 	return void;
 }
 
+int main()
+{
+  fopen();
+  
+  fclose();
+}

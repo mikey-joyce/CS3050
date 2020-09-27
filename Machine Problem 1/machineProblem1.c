@@ -1,3 +1,6 @@
+#include<stdio.h>
+#include<stdlib.h>
+
 struct node
 {
 	int data;
@@ -9,9 +12,15 @@ struct adjList
 	struct node * graph;
 };
 
-struct adjList* initList(void)
+struct adjList* initList(int size)
 {
-	return * headNode;
+  struct adjList *headNode;
+  headNode = (struct adjList*)malloc(size*sizeof(struct adjList));
+  if(headNode==NULL)
+  {
+    printf("Error at initList function");
+  }
+  return *headNode;
 }
 
 readFile()

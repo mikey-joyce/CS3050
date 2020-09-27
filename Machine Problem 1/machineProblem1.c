@@ -1,3 +1,9 @@
+/*Created by:
+Mikey Joyce
+Sarah Duong
+Tasha Ogoti
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,6 +37,14 @@ typedef struct Graph{
 
 */
 
+//Prototypes
+List initList();//this will just set to null in the function to initialize an empty list
+Node createNode(int);//create a node in our linked list
+int enQueue(List*,int);//use a queue for the list
+Node *deQueue(List*);
+void printList(List*);//prints it out in the correct order
+void freeList(List*);//frees our memory
+
 typedef struct node
 {
 	int data;
@@ -42,6 +56,7 @@ typedef struct list
 	struct node * graph;
 }List;
 
+//?
 struct adjList ** initList(int size)
 {
   struct adjList **headNode;

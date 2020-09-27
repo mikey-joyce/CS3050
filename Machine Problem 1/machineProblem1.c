@@ -1,6 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+//linked list structs
+
+typedef struct Node{
+  int data;
+  struct Node *next;
+}Node;
+
+typedef struct List{
+  int total;
+  struct Node *head;
+}List;
+
+//graph structs
+
+typdef struct Edge{
+  struct Vertex *vertex;
+}Edge;
+
+typedef struct Vertex{
+  int data;
+  struct List *edges;
+}Vertex;
+
+typedef struct Graph{
+  struct List *vertices;
+}Graph;
+
+*/
+
 typedef struct node
 {
 	int data;
@@ -40,12 +70,12 @@ struct adjList** createNode(struct adjList** headNode, int a, int b)
 
 addNode()
 {
-  createNode(struct adjList ** headNode, int a, int b);	
+  createNode(struct adjList ** headNode, int a, int b);
 }
 
 int compare(struct node * prevNode, struct node * curNode)
 {
-	// compare node for inc size	
+	// compare node for inc size
   if(prevNode==NULL || curNode==NULL)
   {
     printf("Please input a valid Node before comparing.\n";
@@ -65,7 +95,7 @@ void printList(struct adjList ** headNode)
     return;
   }
 
-  //Loop through the adjacency list to print out the vertices 
+  //Loop through the adjacency list to print out the vertices
   for(int i=0; Node * headNode[i]->graph->next == NULL;i++)
   {
     //

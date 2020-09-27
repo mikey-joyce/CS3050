@@ -1,5 +1,5 @@
 // functions list
-Create list
+Create list - return initialized empty list
 Add node to list
 Read file function (if needed)
 Print function

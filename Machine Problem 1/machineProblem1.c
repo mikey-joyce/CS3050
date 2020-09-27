@@ -33,8 +33,9 @@ typedef struct Graph{
 }Graph;
 
 //Prototypes for linked list
-//readFile(); //might be a double pointer of type Node but unsure of this
-List initList();//this will just set to null in the function to initialize an empty list
+//!!!!!! DEVELOP THESE FIRST !!!!!!!!!
+//readFile(); //might be a double pointer of type Node but unsure of this. Also this file will be big bc we should be converting to an adjList here.
+List initList();
 Node createNode(int);//create a node in our linked list
 int enQueue(List*,int);//use a queue for the list
 Node *deQueue(List*);
@@ -42,6 +43,9 @@ void printList(List*);//prints it out in the correct order
 void freeList(List*);//frees our memory
 
 //Prototypes for graph
+Graph *createGraph();
+Vertex *createVertex(int);
+Edge *createEdge(Vertex*);
 int compareEdges(Edge*, Edge*);
 void addVertex(Graph*, Vertex*);
 void removeVertex(Graph*, Vertex*);

@@ -16,7 +16,7 @@ typedef struct List{
 
 //graph structs
 
-typdef struct Edge{
+typedef struct Edge{
   struct Vertex *vertex;
 }Edge;
 

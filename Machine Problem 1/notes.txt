@@ -1,6 +1,6 @@
 // functions list
 Create list - return initialized empty list
-Add node to list
+Add node to list - void
 Read file function (if needed)
 Print function
 Compare function - for prevNode and curNode

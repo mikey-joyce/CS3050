@@ -3,7 +3,7 @@ Create list - return initialized empty list
 Add node to list - void
 Read file function (if needed) - return fPtr
 Print function - void
-Compare function - for prevNode and curNode
+Compare function (for prevNode and curNode) - return true or false
 
 
 /*Read from file*/

@@ -56,6 +56,8 @@ void freeGraph(Graph*);
 void freeVertex(Vertex*);
 //maybe 2 more functions to sort vertices and edges? we will see if we need it later
 
+//Linked List functions
+
 List initList(){
 	//Declare and allocate memory to myList
 	List *myList = malloc(sizeof(List));
@@ -174,6 +176,87 @@ void freeList(List *myList){
 	//for testing purposes
 	//!!!! OMIT THIS LINE BEFORE TURNING IN !!!!!
 	printf("Free was successful!\n");
+}
+
+//Graph Functions
+
+Graph *initGraph(){
+	//declare and allocate memory to myGraph
+	Graph *myGraph = malloc(sizeof(Graph));
+
+	//initialize my graph
+	myGraph->vertices = initList();
+
+	return myGraph;
+}
+
+Vertex *createVertex(int data){
+	//declare and allocate memory to myVertex
+	Vertex *myVertex = malloc(sizeof(Vertex));
+
+	//check if malloc works
+	if(myVertex==NULL){
+		//Malloc failed return NULL
+		return NULL;
+	}
+
+	//initialize our vertex
+	myVertex->data = data;
+	myVertex->edges = initList();
+
+	return myVertex;
+}
+
+Edge *createEdge(Vertex *myVertex){
+	//declare and allocate memory to edge
+	Edge *myEdge = malloc(sizeof(Edge));
+
+	//initialize the data
+	myEdge->vertex = myVertex;
+
+	return myEdge;
+}
+
+int compareEdges(Edge *edgeOne, Edge *edgeTwo){
+	//might not need unless we do a weighted graph which I don't think we are doing
+}
+
+void addVertex(Graph *myGraph, Vertex *myVertex){
+	enQueue(myGraph->vertices, myVertex);
+}
+
+void removeVertex(Graph *, Vertex *){
+
+}
+
+void addEdge(Vertex *myVertex, Edge *myEdge){
+	enQueue(myVertex->edges, myEdge);
+}
+
+void removeEdge(Vertex*, Edge*){
+	/*will require a call to the dequeue function but we may need to change
+	dequeue from a normal queue to where it can target said edge
+	instead of targeting the tail of the list*/
+}
+
+void addEdge_toVertex(Vertex*, Vertex*){
+
+}
+
+void freeGraph(Graph *myGraph){
+	//free all associated vertices
+	freeList(myGraph->vertices);
+
+	//free the graph
+	free(myGraph);
+}
+
+void freeVertex(Vertex *myVertex){
+	//free associated list
+	freeList(myVertex->edges);
+
+	//free the vertex
+	free(myVertex);
 }
 
 //The code in this comment needs to be adapted to the above code

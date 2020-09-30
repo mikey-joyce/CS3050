@@ -100,10 +100,10 @@ void readFile(FILE * fPtr)
 	// scan in values from file and find smallest and largest
 	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB) == 2)
 	{
-		Graph * myGraph;
+		List * myList;
 		
-		myGraph[n][0] = vertexA;
-		myGraph[n][1] = vertexB;
+		myList[n][0] = vertexA;
+		myList[n][1] = vertexB;
 		
 		int max = vertexB
 		

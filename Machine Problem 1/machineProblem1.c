@@ -8,7 +8,6 @@ Tasha Ogoti
 #include <stdlib.h>
 #include <string.h>
 
-
 void readFile(FILE * fPtr)
 {
 	//In the case that the name of the file is not pre-determined

@@ -262,15 +262,17 @@ void addVertex(Graph *myGraph, Vertex *myVertex){
 	enQueue(myGraph->vertices, myVertex);
 }
 
-void removeVertex(Graph *, Vertex *){
-
+void removeVertex(Graph * myGraph, Vertex * myVertex){
+	deQueue(myGraph->vertices);
 }
 
 void addEdge(Vertex *myVertex, Edge *myEdge){
 	enQueue(myVertex->edges, myEdge);
 }
 
-void removeEdge(Vertex*, Edge*){
+void removeEdge(Vertex * myVertex, Edge * myEdge){
+	deQueue(myVertex->edges);
+	
 	/*will require a call to the dequeue function but we may need to change
 	dequeue from a normal queue to where it can target said edge
 	instead of targeting the tail of the list*/

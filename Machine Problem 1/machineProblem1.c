@@ -132,7 +132,9 @@ void readFile(FILE * fPtr)
 		for (int i = 0; i < numLines; i++)
 		{
 			int key = -1;
-
+			
+			Graph ** myGraph;
+			
 			if (myGraph[i][0] == j)
 			{
 			key = myGraph[i][1];
@@ -146,7 +148,7 @@ void readFile(FILE * fPtr)
 			if (key != -1)
 			{
 				myList[key][index[key]] = j;
-				indexes[key] += 1;
+				index[key] += 1;
 			}
 		}
 	}

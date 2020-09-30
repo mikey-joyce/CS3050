@@ -87,7 +87,8 @@ void readFile(FILE * fPtr)
 	*/
 	int vertexA; // first number in line
 	int vertexB; // second number in line
-	int numLines = 1; // track total number of lines
+	/*int numLines = 1; // track total number of lines*/
+	int numOfLines = 1; // track total number of lines
 	int numVertices = 1; // track total number of vertices
 	int count = 0;
 	int numLines = 0;
@@ -104,10 +105,12 @@ void readFile(FILE * fPtr)
 		List * myList;
 		
 		// insert values into 2d array
-		myList[n][0] = vertexA;
-		myList[n][1] = vertexB;
+		/*myList[n][0] = vertexA;
+		myList[n][1] = vertexB;*/
+		myList[numOfLines][0] = vertexA;
+		myList[numOfLines][1] = vertexB;
 		
-		int max = vertexB
+		int max = vertexB;
 		
 		// compare to find largest value
 		if((vertexB > count) && (vertexA <= vertexB))

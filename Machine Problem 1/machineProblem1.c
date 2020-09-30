@@ -85,15 +85,16 @@ void readFile(FILE * fPtr)
 	
 	
 	*/
-	int vertexA;
-	int vertexB;
-	int numLines = 1;
-	int numVertices = 1;
+	int vertexA; // first number in line
+	int vertexB; // second number in line
+	int numLines = 1; // track total number of lines
+	int numVertices = 1; // track total number of vertices
 	int count = 0;
 	int numLines = 0;
 	
-	fPtr = fopen("graph.txt", "r");
+	fPtr = fopen("graph.txt", "r"); // open file for reaeding
 	
+	// malloc checking
 	if(fPtr == NULL)
 		printf("File could not be opened or read.\n");
 	
@@ -102,11 +103,13 @@ void readFile(FILE * fPtr)
 	{
 		List * myList;
 		
+		// insert values into 2d array
 		myList[n][0] = vertexA;
 		myList[n][1] = vertexB;
 		
 		int max = vertexB
 		
+		// compare to find largest value
 		if((vertexB > count) && (vertexA <= vertexB))
 		{
 			count = vertexB;
@@ -119,7 +122,7 @@ void readFile(FILE * fPtr)
 		numOfLines++;
 	}	
 	
-	// create adjList
+	// create adjList, insert values into list
 	List myList[numVertices + 1][numVertices + 1] = malloc(sizeof(int) * (numVertices + 1));
 	for (int j = 1; j <= numVertices; j++)
     	{
@@ -144,7 +147,7 @@ void readFile(FILE * fPtr)
 			}
 		}
 	}
-	fclose(fPtr);
+	fclose(fPtr); // close file
 }
 
 Node createNode(int data){

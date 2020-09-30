@@ -15,7 +15,7 @@ void readFile(FILE * fPtr)
 
 	void readFile(const char *TheFile)
 	{
-		FILE *fPtr=fopen(TheFile,"r");
+		FILE *fPtr=fopen(TheFile,"r"); 
 
 
 

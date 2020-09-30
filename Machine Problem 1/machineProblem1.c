@@ -86,8 +86,11 @@ void readFile(FILE * fPtr)
 	
 	*/
 	int vertexA;
-	int certexB;
+	int vertexB;
+	int numLines = 1;
+	int numVertices = 1;
 	int count = 0;
+	int numLines = 0;
 	
 	fPtr = fopen("graph.txt", "r");
 	
@@ -95,9 +98,14 @@ void readFile(FILE * fPtr)
 		printf("File could not be opened or read.\n");
 	
 	// scan in values from file and find smallest and largest
-	while(!feof(fPtr))
+	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB) == 2)
 	{
-		fscanf(fPtr, "%d %d", vertexA, vertexB);
+		Graph * myGraph;
+		
+		myGraph[n][0] = vertexA;
+		myGraph[n][1] = vertexB;
+		
+		int max = vertexB
 		
 		if((vertexB > count) && (vertexA <= vertexB))
 		{
@@ -105,12 +113,39 @@ void readFile(FILE * fPtr)
 		}
 		if((vertexA > count) && (vertexA >= vertexB))
 		{
-			count = vertexB;
+			count = vertexA;
 		}
 		count++;
+		numOfLines++;
 	}	
-}
+	
+	// create adjList
+	List myList[numVertices + 1][numVertices + 1] = malloc(sizeof(int) * (numVertices + 1));
+	for (int j = 1; j <= numVertices; j++)
+    	{
+		for (int i = 0; i < numLines; i++)
+		{
+			int key = -1;
 
+			if (myGraph[i][0] == j)
+			{
+			key = myGraph[i][1];
+			}
+			
+			if (myGraph[i][1] == j)
+			{
+				key = myGraph[i][0];
+			}
+			
+			if (key != -1)
+			{
+				myList[key][index[key]] = j;
+				indexes[key] += 1;
+			}
+		}
+	}
+	fclose(fPtr);
+}
 
 Node createNode(int data){
 	//Declare and allocate memory to myNode

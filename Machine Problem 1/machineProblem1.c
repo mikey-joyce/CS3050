@@ -12,9 +12,9 @@ void readFile(FILE * fPtr)
 {
 	//In the case that the name of the file is not pre-determined
 
-	//void readFile(const char *TheFile)
-	//{
-	//	FILE *fPtr=fopen(TheFile,"r");
+	void readFile(const char *TheFile)
+	{
+		FILE *fPtr=fopen(TheFile,"r");
 
 
 

@@ -8,14 +8,14 @@ Tasha Ogoti
 #include <stdlib.h>
 #include <string.h>
 
-/*
+
 void readFile(FILE * fPtr)
 {
-	In the case that the name of the file is not pre-determined
+	//In the case that the name of the file is not pre-determined
 
-	void readFile(const char *TheFile)
-	{
-		FILE *fPtr=fopen(TheFile,"r");
+	//void readFile(const char *TheFile)
+	//{
+	//	FILE *fPtr=fopen(TheFile,"r");
 
 
 
@@ -35,15 +35,15 @@ void readFile(FILE * fPtr)
 	// scan in values from file and find smallest and largest
 	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB) == 2)
 	{
-		List myList[numOfLines][2];
+		int myList[numOfLines][2];
 
 		// insert values into 2d array
-		myList[n][0] = vertexA;
-		myList[n][1] = vertexB;
+		//myList[n][0] = vertexA;
+		//myList[n][1] = vertexB;
 		myList[numOfLines][0] = vertexA;
 		myList[numOfLines][1] = vertexB;
 
-		int max = vertexB;
+		//int max = vertexB;
 
 		// compare to find largest value
 		if((vertexB > count) && (vertexA <= vertexB))
@@ -59,8 +59,8 @@ void readFile(FILE * fPtr)
 	}
 
 	// create adjList, insert values into list
-	List myList[numVertices + 1][numVertices + 1] = malloc(sizeof(int) * (numVertices + 1));
-	int * index = malloc(sizeof(int) * (numVertices + 1))
+	int myList[numVertices + 1][numVertices + 1]; //= malloc(sizeof(int) * (numVertices + 1));
+	int * index = malloc(sizeof(int) * (numVertices + 1));
 	if(index == NULL)
 	{
 		printf("Index could not be malloced.\n");
@@ -94,8 +94,25 @@ void readFile(FILE * fPtr)
 		}
 	}
 	fclose(fPtr); // close file
+
+	//print list
+	for(int i=1; i<numVertices; i++){
+		if(index[i]>0){
+			for(int j=0; j<index[i]; j++){
+				printf("%d ", myList[i][j]);
+			}
+			printf("\n");
+		}
+	}
 }
-*/
+
+int main(){
+	FILE *fPtr=NULL;
+	readFile(fPtr);
+	return 0;
+}
+
+/*
 int main(){
 	//open file
 	FILE *fPtr = fopen("graph.txt", "r");
@@ -176,3 +193,4 @@ int main(){
 
 	return 0;
 }
+*/

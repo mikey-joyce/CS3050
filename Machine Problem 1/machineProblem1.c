@@ -429,7 +429,7 @@ void freeNodes(struct adjList ** headNode)
 
 }
 */
-
+ 
 int main()
 {
   FILE * fPtr = fopen("graph.txt"); // open file for reading

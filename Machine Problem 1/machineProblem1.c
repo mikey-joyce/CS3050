@@ -101,7 +101,7 @@ void readFile(FILE * fPtr)
 	// scan in values from file and find smallest and largest
 	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB) == 2)
 	{
-		List * myList;
+		List myList[numOfLines][2];
 		
 		// insert values into 2d array
 		/*myList[n][0] = vertexA;
@@ -142,16 +142,14 @@ void readFile(FILE * fPtr)
 		{
 			int key = -1;
 			
-			Graph ** myGraph;
-			
-			if (myGraph[i][0] == j)
+			if (myList[i][0] == j)
 			{
-			key = myGraph[i][1];
+			key = myList[i][1];
 			}
 			
-			if (myGraph[i][1] == j)
+			if (myList[i][1] == j)
 			{
-				key = myGraph[i][0];
+				key = myList[i][0];
 			}
 			
 			if (key != -1)

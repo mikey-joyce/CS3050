@@ -92,9 +92,9 @@ void readFile(FILE * fPtr)
 	int count = 0;
 	int numLines = 0;
 	
-	fPtr = fopen("graph.txt", "r"); // open file for reaeding
+	fPtr = fopen("graph.txt", "r"); // open file for reading
 	
-	// malloc checking
+	// checking if file is valid/able to be opened
 	if(fPtr == NULL)
 		printf("File could not be opened or read.\n");
 	
@@ -127,6 +127,12 @@ void readFile(FILE * fPtr)
 	// create adjList, insert values into list
 	List myList[numVertices + 1][numVertices + 1] = malloc(sizeof(int) * (numVertices + 1));
 	int * index = malloc(sizeof(int) * (numVertices + 1))
+	if(index == NULL)
+	{
+		printf("Index could not be malloced.\n");
+		free(index);
+	}
+	
 		
 	memset(index, 0, sizeof(int) * (numVertices + 1)); // set index, increment each time an edge is added to a vertex/index
 		

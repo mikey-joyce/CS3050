@@ -87,7 +87,6 @@ void readFile(FILE * fPtr)
 	*/
 	int vertexA; // first number in line
 	int vertexB; // second number in line
-	/*int numLines = 1; // track total number of lines*/
 	int numOfLines = 1; // track total number of lines
 	int numVertices = 1; // track total number of vertices
 	int count = 0;
@@ -127,6 +126,10 @@ void readFile(FILE * fPtr)
 	
 	// create adjList, insert values into list
 	List myList[numVertices + 1][numVertices + 1] = malloc(sizeof(int) * (numVertices + 1));
+	int * index = malloc(sizeof(int) * (numVertices + 1))
+		
+	memset(index, 0, sizeof(int) * (numVertices + 1)); // set index, increment each time an edge is added to a vertex/index
+		
 	for (int j = 1; j <= numVertices; j++)
     	{
 		for (int i = 0; i < numLines; i++)

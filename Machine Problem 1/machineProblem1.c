@@ -173,9 +173,10 @@ Node *deQueue(List *myNode){
 	return myNode->head;
 }
 
-void printList(List *myList){
+void printList(List * myList)
+{
 	//alias to the Node pointer
-	Node *myNode = myList->head;
+	Node * myNode = myList->head;
 
 	//traverse the list
 	while(myNode!=NULL){

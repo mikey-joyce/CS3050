@@ -75,6 +75,35 @@ List initList(){
 	return myList;
 }
 
+void readFile(FILE * fPtr)
+{
+	int vertexA;
+	int certexB;
+	int count = 0;
+	
+	fPtr = fopen("graph.txt", "r");
+	
+	if(fPtr == NULL)
+		printf("File could not be opened or read.\n");
+	
+	// scan in values from file and find smallest and largest
+	while(!feof(fPtr))
+	{
+		fscanf(fPtr, "%d %d", vertexA, vertexB);
+		
+		if((vertexB > count) && (vertexA <= vertexB))
+		{
+			count = vertexB;
+		}
+		if((vertexA > count) && (vertexA >= vertexB))
+		{
+			count = vertexB;
+		}
+		count++;
+	}	
+}
+
+
 Node createNode(int data){
 	//Declare and allocate memory to myNode
 	Node *myNode = malloc(sizeof(Node));

@@ -317,7 +317,12 @@ void removeEdge(Vertex * myVertex, Edge * myEdge){
 	instead of targeting the tail of the list*/
 }
 
-void addEdge_toVertex(Vertex*, Vertex*){
+void addEdge_toVertex(Vertex* OneV, Vertex* TwoV){
+	if(OneV==NULL||TwoV==NULL)
+	{
+		printf("Either of the vertex does not exist at the function addEdge_toVertex.\n");
+	}
+	OneV->edges=TwoV;
 
 }
 

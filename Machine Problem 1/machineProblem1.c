@@ -1,8 +1,7 @@
-/*Created by: 
+/* Created by
 Mikey Joyce
 Sarah Duong
-Tasha Ogoti
-*/
+Tasha Ogoti */
 
 #include <stdio.h> 
 #include <stdlib.h>

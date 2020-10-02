@@ -9,7 +9,7 @@ Tasha Ogoti
 #include <string.h>
 
 int main(){
-	//open file
+	//open file 
 	FILE *fPtr = fopen("graph.txt", "r");
 
 	//declare variables

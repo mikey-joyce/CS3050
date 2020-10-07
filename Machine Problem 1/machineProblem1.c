@@ -1,15 +1,14 @@
-/*Created by:
+/* Created by
 Mikey Joyce
 Sarah Duong
-Tasha Ogoti
-*/
+Tasha Ogoti */
 
-#include <stdio.h>
+#include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
 
 int main(){
-	//open file
+	//open file 
 	FILE *fPtr = fopen("graph.txt", "r");
 
 	//declare variables

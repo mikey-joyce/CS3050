@@ -60,6 +60,7 @@ int main(){
 	int *myIndexes = malloc(sizeof(int) * (vertexCount + 1));
 	memset(myIndexes, 0, sizeof(int) * (vertexCount + 1));
 
+	//traverse list
 	for(int i=1; i<=vertexCount; i++){
 		for(int j=0; j<lineCount; j++){
 			int flag = -1;
@@ -77,7 +78,7 @@ int main(){
 	}
 
 	//print list
-	for(int i=1; i<vertexCount; i++){
+	for(int i=0; i<vertexCount; i++){
 		if(myIndexes[i]>0){
 			for(int j=0; j<myIndexes[i]; j++){
 				printf("%d ", adjList[i][j]);

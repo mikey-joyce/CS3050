@@ -4,11 +4,6 @@
 
 //Represents an adjacency list node
 typedef struct AdjListNode{
-  int indegree; //the idea of this is to keep track of indegree
-  int outdegree; //the idea of this is to keep track of outdegree
-  /*for the indegree and outdegree if we keep track of this then
-  we may just set it to 0 and create a separate function to tell
-  where it is going*/
   int destination;
   AdjListNode *next;
 }AdjListNode;
@@ -21,6 +16,11 @@ typedef struct AdjList{
 /*Basic Linked list
 Used as a list that each node contains a separate adj list*/
 typedef struct List{
+  int indegree; //the idea of this is to keep track of indegree
+  int outdegree; //the idea of this is to keep track of outdegree
+  /*for the indegree and outdegree if we keep track of this then
+  we may just set it to 0 and create a separate function to tell
+  where it is going*/
 	AdjList *myAdjList;
 	List *next;
 }List;
@@ -57,8 +57,6 @@ AdjListNode createNode(int dest){
   AdjListNode *newNode=malloc(sizeof(AdjListNode));
 
   //initialize our data
-  newNode->indegree=0;
-  newNode->outdegree=0;
   newNode->destination=dest;
   newNode->next=NULL;
 
@@ -81,6 +79,8 @@ Graph createGraph(int v){
   //traverse the list
   for(int i=0; i<v; ++i){
     //set all of our head nodes to NULL and increment to next
+    alias->indegree=0;
+    alias->outdegree=0;
     alias->myAdjList->head=NULL;
     alias=alias->next;
   }

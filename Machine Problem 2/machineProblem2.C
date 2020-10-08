@@ -11,12 +11,12 @@ typedef struct AdjListNode{
   where it is going*/
   int destination;
   AdjListNode *next;
-}adjListNode;
+}AdjListNode;
 
 //Represents and adjacency list
 typedef struct AdjList{
   AdjListNode *head;
-}adjList;
+}AdjList;
 
 /*Basic Linked list
 Used as a list that each node contains a separate adj list*/
@@ -35,6 +35,11 @@ typedef struct Graph{
 //Graph prototypes
 AdjListNode createNode(int);
 Graph createGraph(int);
+void addEdge(Graph *,Graph *, int, int);
+void printGraph(Graph *);
+void fillStack(Graph *, int, bool, int *);
+void DFS(Graph *, int, bool);
+void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
 AdjListNode *push(AdjList *, int);
@@ -64,9 +69,23 @@ AdjListNode createNode(int dest){
 Graph createGraph(int v){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
+  AdjList alias;
 
+  //set vertices to amount of vertices given and allocate memory
   newGraph->vertices=v;
-  newGraph->myList=malloc(sizeof(AdjList));
+  newGraph->myList=malloc(sizeof(List));
+
+  //alias to simplify
+  alias=newGraph->myList;
+
+  //traverse the list
+  for(int i=0; i<v; ++i){
+    //set all of our head nodes to NULL and increment to next
+    alias->myAdjList->head=NULL;
+    alias=alias->next;
+  }
+
+  return newGraph;
 }
 
 //Stack functions

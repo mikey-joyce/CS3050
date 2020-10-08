@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<stdbool.h>
 
-
 //Represents an adjacency list node
 typedef struct AdjListNode{
   int indegree; //the idea of this is to keep track of indegree
@@ -19,11 +18,18 @@ typedef struct AdjList{
   AdjListNode *head;
 }adjList;
 
+/*Basic Linked list
+Used as a list that each node contains a separate adj list*/
+typedef struct List{
+	AdjList *myAdjList;
+	List *next;
+}List;
+
 //Represents a graph
 typedef struct Graph{
   int vertices;
   int *visited;
-  AdjList *myList;
+  List *myList;
 }Graph;
 
 //Graph prototypes

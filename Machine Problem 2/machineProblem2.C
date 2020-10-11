@@ -68,9 +68,12 @@ AdjListNode createNode(int dest){
   //Declare and allocate memory to the new node
   AdjListNode *newNode=malloc(sizeof(AdjListNode));
 
-  //initialize our data
-  newNode->destination=dest;
-  newNode->next=NULL;
+  //check to see if malloc worked
+  if(newNode){
+    //initialize our data
+    newNode->destination=dest;
+    newNode->next=NULL;
+  }
 
   return newNode;
 }
@@ -81,6 +84,11 @@ Graph createGraph(int v){
   Graph *newGraph=malloc(sizeof(Graph));
   AdjList alias;
 
+  //if malloc failed
+  if(!newGraph){
+    return NULL;
+  }
+
   //set vertices to amount of vertices given and allocate memory
   newGraph->vertices=v;
   newGraph->myList=malloc(sizeof(List));
@@ -88,13 +96,26 @@ Graph createGraph(int v){
   //alias to simplify
   alias=newGraph->myList;
 
+  //if malloc failed
+  if(!alias){
+    return NULL;
+  }
+
   //traverse the list
-  for(int i=0; i<v; ++i){
+  for(int i=0; i<=v; i++){
+    List *newListNode=malloc(sizeof(List));
+
+    //if malloc worked
+    if(!newListNode){
+      return NULL;
+    }
+    
     //set all of our head nodes to NULL and increment to next
     alias->indegree=0;
     alias->outdegree=0;
     alias->myAdjList->head=NULL;
-    alias=alias->next;
+    alias->next=newListNode;
+    alias=newListNode;
   }
 
   return newGraph;

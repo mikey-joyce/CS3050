@@ -46,9 +46,21 @@ AdjListNode *push(AdjList *, int);
 AdjListNode *pop(AdjList *);
 
 //Some sort of readFile function prototype will need to be added
+void readFile(FILE * fPtr)
+{
+	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB)==2){
+		numOfLines++;
+	}
+	
+}
 
-int main(void){
-
+int main(void)
+{
+	FILE * fPtr - fopen("graph.txt", "r");
+	readFile(fPtr);
+	
+	fclose(fPtr);
+	fPtr = NULL;
 }
 
 //create a new adj list node

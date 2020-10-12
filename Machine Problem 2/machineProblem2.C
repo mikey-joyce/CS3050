@@ -1,5 +1,5 @@
 #include<stdlib.h>
-#include<stdio.h> 
+#include<stdio.h>
 #include<stdbool.h>
 
 //Represents an adjacency list node
@@ -51,14 +51,14 @@ void readFile(FILE * fPtr)
 	while(fscanf(fPtr, "%d %d", &vertexA, &vertexB)==2){
 		numOfLines++;
 	}
-	
+
 }
 
 int main(void)
 {
 	FILE * fPtr - fopen("graph.txt", "r");
 	readFile(fPtr);
-	
+
 	fclose(fPtr);
 	fPtr = NULL;
 }
@@ -95,6 +95,9 @@ Graph createGraph(int v){
 
   //alias to simplify
   alias=newGraph->myList;
+  alias->indegree=0;
+  alias->outdegree=0;
+  alias->myAdjList->head=NULL;
 
   //if malloc failed
   if(!alias){
@@ -109,11 +112,11 @@ Graph createGraph(int v){
     if(!newListNode){
       return NULL;
     }
-    
-    //set all of our head nodes to NULL and increment to next
-    alias->indegree=0;
-    alias->outdegree=0;
-    alias->myAdjList->head=NULL;
+
+    //initialize our data and increment to next
+    newListNode->indegree=0;
+    newListNode->outdegree=0;
+    newListNode->myAdjList->head=NULL;
     alias->next=newListNode;
     alias=newListNode;
   }

@@ -37,9 +37,9 @@ AdjListNode *createNode(int);
 Graph *createGraph(int);
 void readFile(FILE *);
 void addEdge(Graph *,Graph *, int, int);
-void printGraph(Graph *);
-void fillStack(Graph *graphData, int v, bool checked[], int *stack);
-void DFS(Graph * myGraph, int num, bool visit[]);
+void printOutdegrees(Graph *);
+void fillStack(Graph *, int, bool, List *);
+void DFS(Graph *, int, bool);
 void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
@@ -49,9 +49,9 @@ void *pop(AdjListNode *);
 
 //new prototype
 List *findTargetNode(Graph *, int);
+void findSCC(Graph *, Graph *, int);
 
-int main(void)
-{
+int main(void){
 	FILE *fPtr = fopen("graph.txt", "r");
 	readFile(fPtr);
 	fclose(fPtr);
@@ -61,8 +61,7 @@ int main(void)
 /*AS OF NOW THIS IS WRONG
 FIRST WE READ IN THE AMOUNT OF VERTICES
 THEN WE ADD THE EDGES*/
-void readFile(FILE *fPtr)
-{
+void readFile(FILE *fPtr){
   int numOfLines = 0, next, destination;
   int line = 1;
   int length = 0;
@@ -110,6 +109,33 @@ List *findTargetNode(Graph *graph, int target){
   return currentNode;
 }
 
+void findSCC(Graph *graphData1, Graph *graphData2, int vertices, List *myStack){
+  bool visited[vertices];
+  int count=1;
+
+  for(int i=0; i<vertices; i++){
+    visited[i]=false;
+  }
+
+  for(int j=0; j<vertices; j++){
+    if(visited[j]==false){
+      fillStack(graphData1, j, visited, myStack);
+    }
+  }
+
+  for(int k=0; k<vertices; k++){
+    visited[k]=false;
+  }
+
+  while(myStack){
+    List *temp;
+    AdjListNode *list=myStack->myAdjList->head;
+    temp = myStack->next;
+    pop(myStack);
+    myStack=temp;
+  }
+}
+
 //create a new adj list node
 AdjListNode* createNode(int data){
   //Declare and allocate memory to the new node
@@ -125,7 +151,7 @@ AdjListNode* createNode(int data){
 }
 
 //create a graph with v amount of vertices
-Graph* createGraph(int v){
+Graph* createGraph(int vertices){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
   List *alias;
@@ -137,7 +163,7 @@ Graph* createGraph(int v){
   }
 
   //set vertices to amount of vertices given and allocate memory
-  newGraph->totalVertices = v;
+  newGraph->totalVertices = vertices;
   newGraph->myList=malloc(sizeof(List));
 
   //alias to simplify
@@ -155,7 +181,7 @@ Graph* createGraph(int v){
   alias->myAdjList->head = NULL;
 
   //traverse the list
-  for(int i=0; i<=v; i++){
+  for(int i=0; i<=vertices; i++){
     List *newListNode=malloc(sizeof(List));
 
     //if malloc failed
@@ -174,59 +200,56 @@ Graph* createGraph(int v){
   return newGraph;
 }
 
-void DFS(Graph * myGraph, int num, bool visit[])
-{
+void DFS(Graph *myGraph, int num, bool visited[]){
   //find target node
   List *targetNode=findTargetNode(myGraph, num);
 
   //keep track of visited
-  visit[num] = true;
+  visited[num] = true;
 
   //print dfs
   printf("%d ", num);
 
-  //set hold to be head of the targetNodes list
-  AdjListNode *hold = targetNode->myAdjList->head;
+  //set current head to be head of the targetNodes list
+  AdjListNode *currentHead = targetNode->myAdjList->head;
 
-  //while hold exists
-  while (hold)
+  //while currentHead exists
+  while (currentHead)
   {
-    //if the hold destination doesn't exist in visited
-    if (!visit[hold->destination])
+    //if the current head destination doesn't exist in visited
+    if (!visited[currentHead->destination])
     {
       //call DFS
-      DFS(myGraph, hold->destination, visit);
+      DFS(myGraph, currentHead->destination, visit);
     }
     //increment hold to next
-    hold = hold->next;
+    currentHead = currentHead->next;
   }
 }
 
-void addEdge(Graph *graphData1, Graph *graphData2, int src, int dest)
-{
+void addEdge(Graph *graphData1, Graph *graphData2, int source, int destination){
   //create a new node
-  AdjListNode *temp=createNode(dest);
+  AdjListNode *newNode=createNode(destination);
 
   //find target nodes for both lists
-  List *myList1=findTargetNode(graphData1, src);
-  List *myList2=findTargetNode(graphData2, src);
+  List *myList1=findTargetNode(graphData1, source);
+  List *myList2=findTargetNode(graphData2, source);
 
   //make next to the new node to be the head of list one
-  temp->next = myList1->myAdjList->head;
+  newNode->next = myList1->myAdjList->head;
 
   //make the head of list two be the new node
-  myList2->myAdjList->head = temp;
+  myList2->myAdjList->head = newNode;
 
   //transpose our graph
-  transposeGraph(graphData2, src, dest);
+  transposeGraph(graphData2, source, destination);
 }
 
-void fillStack(Graph *graphData, int data, bool visit[], int *stack)
-{
+void fillStack(Graph *graphData, int data, bool visited[], List *myStack){
   //find target node
   List *targetNode=findTargetNode(graphData, data);
   //array of visited
-  visit[data] = true;
+  visited[data] = true;
 
   //set n to be head of the list that belongs to the target node
   AdjListNode *currentNode = targetNode->myAdjList->head;
@@ -235,10 +258,10 @@ void fillStack(Graph *graphData, int data, bool visit[], int *stack)
   while(currentNode)
   {
     //if our nodes destination doesn't exist in visited
-    if(!visit[currentNode->destination])
+    if(!visited[currentNode->destination])
     {
       //fill the stack
-      fillStack(graphData, currentNode->destination, visit, stack);
+      fillStack(graphData, currentNode->destination, visited, myStack);
     }
     //increment current node to next
     currentNode = currentNode->next;
@@ -246,13 +269,12 @@ void fillStack(Graph *graphData, int data, bool visit[], int *stack)
   push(currentNode, data);
 }
 
-void transposeGraph(Graph * graphData, int src , int dest)
-{
+void transposeGraph(Graph * graphData, int source, int destination){
   //create new node
-  AdjListNode *newNode = createNode(src);
+  AdjListNode *newNode = createNode(source);
 
   //Find target node
-  List *list=findTargetNode(graphData, dest);
+  List *list=findTargetNode(graphData, destination);
 
   //set next of new node to be current head
   newNode->next = list->myAdjList->head;
@@ -261,21 +283,9 @@ void transposeGraph(Graph * graphData, int src , int dest)
   list->myAdjList->head = newNode;
 }
 
-/*WE MAY NOT NEED THIS FUNCTION*/
-void printGraph(Graph *outDegGraph)
-{
+//Changed this function to print out degree since we dont need to print graph
+void printOutdegrees(Graph *mySCC){
   printf("The outdegrees are: ");
-  for(int i = 0; i <= outDegGraph->totalVertices; i++){
-    List *targetNode=findTargetNode(outDegGraph, i);
-    AdjListnode *hold = targetNode->myAdjList->head;
-    while(hold)
-    {
-      //printf("%d  ",outdegree);
-      printf("%d\n", hold->destination);
-      hold = hold->next;
-      i+=1;
-    }
-  }
 }
 
 //Stack functions

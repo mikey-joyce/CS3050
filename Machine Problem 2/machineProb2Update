@@ -1,0 +1,266 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<stdbool.h>
+
+//Represents an adjacency list node
+typedef struct AdjListNode{
+  int destination;
+  struct AdjListNode * next;
+}AdjListnode;
+
+//Represents and adjacency list
+typedef struct AdjList{
+  struct AdjListNode *head;
+}AdjList;
+
+/*Basic Linked list
+Used as a list that each node contains a separate adj list*/
+typedef struct List{
+  int indegree; //the idea of this is to keep track of indegree
+  int outdegree; //the idea of this is to keep track of outdegree
+  /*for the indegree and outdegree if we keep track of this then
+  we may just set it to 0 and create a separate function to tell
+  where it is going*/
+	AdjList *myAdjList;
+	struct List *next;
+}List;
+
+//Represents a graph
+typedef struct Graph{
+  int vertices;
+  int *visited;
+  List *myList;
+}Graph;
+
+//Graph prototypes
+struct AdjListNode* createNode(int);
+Graph* createGraph(int);
+void readFile(FILE *);
+void addEdge(Graph *,Graph *, int, int);
+void printGraph(Graph *);
+void fillStack(Graph *graphData, int v, bool checked[], int *stack);
+void DFS(Graph * myGraph, int num, bool visit[]);
+void transposeGraph(Graph *, int, int);
+
+//Stack Function Prototypes
+struct AdjListNode *push(struct AdjListNode *, int);
+struct AdjListNode *pop(struct AdjListNode *);
+
+int main(void)
+{
+	FILE * fPtr = fopen("graph.txt", "r");
+	readFile(fPtr);
+	fclose(fPtr);
+	fPtr = NULL;
+}
+
+//Some sort of readFile function prototype will need to be added
+void readFile(FILE * fPtr)
+{
+  int numOfLines = 0, next, destination;
+  int line = 1;
+  int length = 0;
+ 
+   //Loops through the file to find the largest vertex
+   while(!feof(fPtr))
+   {
+	    int startV,endV;
+
+	    fscanf(fPtr, "%d %d\n", &startV, &endV);
+	    if(startV >= endV && startV > length)
+	    {
+	      length = startV;
+	    }
+	    else if(endV >= startV && endV > length)
+	    {
+	       length = endV;
+      }	
+   }
+   //printf("The size of the graph should be %d\n",length);
+  
+  //Sets the pointer back to the beginning of the file
+  rewind(fPtr);
+
+	while(fscanf(fPtr, "%d %d", &next, &destination) == 2){
+		numOfLines++;
+
+    printf("%d: Next: %d, Destination: %d\n", line, next, destination);
+    line++;
+	}
+}
+
+//create a new adj list node
+struct AdjListNode* createNode(int dest){
+  //Declare and allocate memory to the new node
+  struct AdjListNode * newNode = malloc(sizeof(struct AdjListNode));
+
+  //check to see if malloc worked
+  if(newNode){
+    //initialize our data
+    newNode->destination = dest;
+    newNode->next=NULL;
+  }
+  return newNode;
+}
+
+//create a graph with v amount of vertices
+Graph* createGraph(int v){
+  //declare and allocate memory to the new graph
+  Graph *newGraph=malloc(sizeof(Graph));
+  
+  //ERROR: AdjList alias;
+  List *alias;
+
+  //if malloc failed
+  if(newGraph == NULL){
+    printf("Memory allocation failed at createGraph (1).\n");
+    return NULL;
+  }
+
+  //set vertices to amount of vertices given and allocate memory
+  newGraph->vertices = v;
+  newGraph->myList=malloc(sizeof(List));
+
+  //alias to simplify
+  alias = newGraph->myList;
+  alias->indegree = 0;
+  alias->outdegree = 0;
+  alias->myAdjList->head = NULL;
+
+  //if malloc failed
+  if(!alias){
+    printf("Memory allocation failed at createGraph (2).\n");
+    return NULL;
+  }
+
+  //traverse the list
+  for(int i=0; i<=v; i++){
+    List *newListNode=malloc(sizeof(List));
+
+    //if malloc failed
+    if(!newListNode){
+      printf("Memory allocation failed at createGraph (3).\n");
+      return NULL;
+    }
+
+    //initialize our data and increment to next
+    newListNode->indegree = 0;
+    newListNode->outdegree = 0;
+    newListNode->myAdjList->head = NULL;
+    alias->next = newListNode;
+    alias = newListNode;
+  }
+  return newGraph;
+}
+
+void DFS(Graph * myGraph, int num, bool visit[])
+{
+  visit[num] = true;
+  printf("%d ", num);
+  struct AdjListNode * hold = myGraph->myList[num].myAdjList->head;
+  while (hold)
+  {
+    if (!visit[hold->destination])
+    {
+      DFS(myGraph, hold->destination, visit);
+    }
+    hold = hold->next;
+  }
+}
+
+void addEdge(Graph *graphData1, Graph *graphData2, int src, int dest)
+{
+  struct AdjListNode *temp;
+  temp  = createNode(dest);
+
+  temp->next = graphData1->myList[src].myAdjList->head;
+  graphData2->myList[src].myAdjList->head = temp;
+  transposeGraph(graphData2, src, dest);
+/*
+  struct adj_list_node *newNode = new_adj_list_node(destination);
+newNode->next = graph->array[src].head;
+graph->array[src].head = newNode;
+get_transpose(gr, src, destination); */
+}
+
+void fillStack(Graph *graphData, int data, bool visit[], int *stack)
+{
+  visit[data] = true;
+
+  int i=0;
+
+  struct AdjListNode *n;
+  n = graphData->myList[data].myAdjList->head;
+
+  while(n)
+  {
+    if(!visit[n->destination])
+    {
+      fillStack(graphData, n->destination, visit, stack);
+    }
+    n = n->next;
+  }
+  push(n, data);
+}
+
+void transposeGraph(Graph * graphData, int src , int dest)
+{
+  struct AdjListNode *newNode = createNode(src);
+  newNode->next = graphData->myList[dest].myAdjList->head;
+
+  graphData->myList[dest].myAdjList->head = newNode;
+}
+
+void printGraph(Graph * outDegGraph)
+{
+  int i;
+  for(i = 0; i < outDegGraph->myList[i].outdegree; i++)
+  {
+    AdjListnode * hold = outDegGraph->myList[i].myAdjList->head;
+    //while(head)
+    while(hold)
+    {
+      //printf("%d  ",outdegree);
+      printf("The outdegrees are: ");
+      printf("%d\n", hold->destination);
+      hold = hold->next;
+      i+=1;
+    }
+  }
+}
+
+//Stack functions
+//struct AdjListNode *push(struct AdjList *node, int data){
+struct AdjListNode *push(struct AdjListNode *node, int data){  
+  //alias to the head
+  //struct AdjListNode myNode = node->head;
+  struct AdjListNode *myNode = node;
+  //Create new node
+	struct AdjListNode *newNode;
+	newNode = createNode(data);
+
+  //set new node to be the head of the list
+	newNode->next=myNode;
+
+  //return the new head
+	return newNode;
+}
+
+//AdjListNode *pop(AdjList *node){
+struct AdjListNode * pop(struct AdjListNode *node){
+  //alias to the head
+  //AdjListNode myNode=node->head;
+  struct AdjListNode * myNode = node;
+
+  //create temp node and set it to be the next of current head node
+	struct AdjListNode *temp;
+	temp = myNode->next;
+
+  //delete the current head node
+	myNode->destination = 0;
+	myNode->next = NULL;
+	free(node);
+
+  //return the new head
+	return temp;
+}

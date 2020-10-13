@@ -82,7 +82,7 @@ AdjListNode createNode(int dest){
 Graph createGraph(int v){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
-  AdjList *alias;
+  List *alias;
 
   //if malloc failed
   if(!newGraph){

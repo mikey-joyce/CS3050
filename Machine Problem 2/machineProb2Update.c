@@ -3,30 +3,30 @@
 #include<stdbool.h>
 
 //Represents an adjacency list node
-typedef struct AdjListNode{
+typedef struct adjlistnodestruct{
   int destination;
-  struct AdjListNode *next;
+  struct adjlistnodestruct *next;
 }AdjListnode;
 
 //Represents and adjacency list
-typedef struct AdjList{
-  struct AdjListNode *head;
+typedef struct adjliststruct{
+  AdjListNode *head;
 }AdjList;
 
 /*Basic Linked list
 Used as a list that each node contains a separate adj list*/
-typedef struct List{
+typedef struct liststruct{
   int indegree; //the idea of this is to keep track of indegree
   int outdegree; //the idea of this is to keep track of outdegree
   /*for the indegree and outdegree if we keep track of this then
   we may just set it to 0 and create a separate function to tell
   where it is going*/
 	AdjList *myAdjList;
-	struct List *next;
+	struct liststruct *next;
 }List;
 
 //Represents a graph
-typedef struct Graph{
+typedef struct graphstruct{
   int totalVertices;
   int *visited;
   List *myList;

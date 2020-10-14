@@ -59,8 +59,13 @@ int main(void){
   //open file
 	FILE *fPtr = fopen("graph.txt", "r");
 
-  //find total vertices and set our stack up
+  //find total vertices
   int totalVertices=readVertices(fPtr);
+
+  //set pointer back to beginning of file
+  rewind(fPtr);
+
+  //set the stack up
   int myStack[totalVertices];
   int stackCounter=-1;
 
@@ -95,9 +100,6 @@ int readVertices(FILE *fPtr){
     //add two vertices
     totalVertices += 2;
   }
-
-  //set pointer back to beginning of file
-  rewind(fPtr);
 
   //return total
   return totalVertices;

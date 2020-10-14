@@ -38,21 +38,30 @@ Graph *createGraph(int);
 void readFile(FILE *);
 void addEdge(Graph *,Graph *, int, int);
 void printOutdegrees(Graph *);
-void fillStack(Graph *, int, bool, List *);
+void fillStack(Graph *, int, bool, int *, int);
 void DFS(Graph *, int, bool);
 void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
 //changed to void and should still make sense
-void *push(AdjListNode *, int);
-void *pop(AdjListNode *);
+void *push(int *, int, int);
+void *pop(int);
 
 //new prototype
 List *findTargetNode(Graph *, int);
-void findSCC(Graph *, Graph *, int);
+void findSCC(Graph *, Graph *, int, int *, int);
+
+//proposed functions instead of readFile
+int readVertices(FILE *);
+//void readEdges(FILE *, other needed parameters to work);
 
 int main(void){
 	FILE *fPtr = fopen("graph.txt", "r");
+  int totalVertices;
+  //find total vertices here
+  int stack[totalVertices];
+  int stackCounter=-1;
+
 	readFile(fPtr);
 	fclose(fPtr);
 	fPtr = NULL;
@@ -109,7 +118,7 @@ List *findTargetNode(Graph *graph, int target){
   return currentNode;
 }
 
-void findSCC(Graph *graphData1, Graph *graphData2, int vertices, List *myStack){
+void findSCC(Graph *graphData1, Graph *graphData2, int vertices, int *myStack, int stackCounter){
   bool visited[vertices];
   int count=1;
 
@@ -119,7 +128,7 @@ void findSCC(Graph *graphData1, Graph *graphData2, int vertices, List *myStack){
 
   for(int j=0; j<vertices; j++){
     if(visited[j]==false){
-      fillStack(graphData1, j, visited, myStack);
+      fillStack(graphData1, j, visited, myStack, stackCounter);
     }
   }
 
@@ -127,12 +136,15 @@ void findSCC(Graph *graphData1, Graph *graphData2, int vertices, List *myStack){
     visited[k]=false;
   }
 
-  while(myStack){
-    List *temp;
-    AdjListNode *list=myStack->myAdjList->head;
-    temp = myStack->next;
-    pop(myStack);
-    myStack=temp;
+  while(stackCounter!=-1){
+    int targetIndex=myStack[stackCounter];
+    pop(stackCounter);
+
+    if(visited[vertices]==false){
+      printf("SCC %d: \n", count++);
+      DFS(graphData2, vertices, visited);
+      printf("\n");
+    }
   }
 }
 
@@ -245,7 +257,7 @@ void addEdge(Graph *graphData1, Graph *graphData2, int source, int destination){
   transposeGraph(graphData2, source, destination);
 }
 
-void fillStack(Graph *graphData, int data, bool visited[], List *myStack){
+void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter){
   //find target node
   List *targetNode=findTargetNode(graphData, data);
   //array of visited
@@ -261,12 +273,12 @@ void fillStack(Graph *graphData, int data, bool visited[], List *myStack){
     if(!visited[currentNode->destination])
     {
       //fill the stack
-      fillStack(graphData, currentNode->destination, visited, myStack);
+      fillStack(graphData, currentNode->destination, visited, myStack, stackCounter);
     }
     //increment current node to next
     currentNode = currentNode->next;
   }
-  push(currentNode, data);
+  push(myStack, stackCounter, data);
 }
 
 void transposeGraph(Graph * graphData, int source, int destination){
@@ -289,28 +301,15 @@ void printOutdegrees(Graph *mySCC){
 }
 
 //Stack functions
-void *push(AdjListNode *myNode, int data){
-  //Create new node
-	AdjListNode *newNode = createNode(data);
+void *push(int *myStack, int stackCounter, int targetIndex){
+  //increment to the first index
+  stackCounter++;
 
-  //set new node to be the head of the list
-	newNode->next=myNode;
-
-  //changed to void because it should still be doing the arithmetic?
-  //return the new head
-	//return newNode;
+  //store the target index in the stack
+  myStack[stackCounter]=targetIndex;
 }
 
-void *pop(AdjListNode *myNode){
-  //create temp node and set it to be the next of current head node
-	AdjListNode *temp = myNode->next;
-
-  //delete the current head node
-	myNode->destination = 0;
-	myNode->next = NULL;
-	free(node);
-
-  //changed to void because it should still be doing the arithmetic?
-  //return the new head
-	//return temp;
+void *pop(int stackCounter){
+  //decrement our stack
+  stackCounter--;
 }

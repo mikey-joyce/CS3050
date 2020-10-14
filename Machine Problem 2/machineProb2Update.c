@@ -53,23 +53,61 @@ void findSCC(Graph *, Graph *, int, int *, int);
 
 //proposed functions instead of readFile
 int readVertices(FILE *);
-//void readEdges(FILE *, other needed parameters to work);
+void readEdges(FILE *, Graph *, Graph *);
 
 int main(void){
+  //open file
 	FILE *fPtr = fopen("graph.txt", "r");
-  int totalVertices;
-  //find total vertices here
-  int stack[totalVertices];
+
+  //find total vertices and set our stack up
+  int totalVertices=readVertices(fPtr);
+  int myStack[totalVertices];
   int stackCounter=-1;
 
-	readFile(fPtr);
+  //Find graph data
+  Graph *graphData1=createGraph(totalVertices);
+  Graph *graphData2=createGraph(totalVertices);
+
+  //read in the edges
+  readEdge(fPtr, graphData1, graphData2);
+
+  //find the SCC graph
+  findSCC(graphData1, graphData2, totalVertices, myStack, stackCounter);
+
+  //function for finding outdegrees maybe can be done within SCC
+  //findOutdegrees() or printOutdegrees() (or both?)
+
+	//readFile(fPtr);
+
+  //close file and set pointer to NULL
 	fclose(fPtr);
 	fPtr = NULL;
+
+  return 0;
 }
 
-/*AS OF NOW THIS IS WRONG
-FIRST WE READ IN THE AMOUNT OF VERTICES
-THEN WE ADD THE EDGES*/
+int readVertices(FILE *fPtr){
+  //keep track of vertices
+  int totalVertices=0;
+
+  //while there is still data in the file
+  while(!feof(fPtr)){
+    //add two vertices
+    totalVertices += 2;
+  }
+
+  //set pointer back to beginning of file
+  rewind(fPtr);
+
+  //return total
+  return totalVertices;
+}
+
+void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
+  //You have to add an edge like:
+  //addEdge(graphData1, graphData2, vertexA, vertexB);
+}
+
 void readFile(FILE *fPtr){
   int numOfLines = 0, next, destination;
   int line = 1;

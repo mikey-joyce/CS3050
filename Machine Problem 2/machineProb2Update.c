@@ -110,16 +110,14 @@ int readVertices(FILE *fPtr){
 }
 
 void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
-  //You have to add an edge like:
+  //while we are not at the end of the file
   while(!feof(fPtr))
 	{
-		int v1;
-		int v2;
+    //scan in the edge and add it into our graph
+		int v1, v2;
 		fscanf(fPtr, "%d %d\n", &v1, &v2);
 		addEdge(graphData1, graphData2, v1, v2);
 	}
-  //addEdge(graphData1, graphData2, vertexA, vertexB);
-  return;
 }
 
 void readFile(FILE *fPtr){
@@ -213,6 +211,7 @@ AdjListNode *createNode(int data){
     newNode->destination = data;
     newNode->next=NULL;
   }
+
   return newNode;
 }
 
@@ -263,6 +262,7 @@ Graph* createGraph(int vertices){
     alias->next = newListNode;
     alias = newListNode;
   }
+  
   return newGraph;
 }
 

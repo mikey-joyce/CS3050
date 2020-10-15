@@ -113,31 +113,46 @@ int readVertices(FILE *fPtr){
     maxVertices+=2;
   }
 
+  rewind(fPtr);
+
   //create an array of unique vertices if its of value -1 then it is not a vertex
   int uniqueVertices[maxVertices]={-1};
 
+  //while we are not at end of file
   while(!feof(fPtr)){
+    //temp vertices and our totalVertices counter
     int vertexA, vertexB;
     counter=0;
 
+    //scan in vertices
     fscanf(fPtr, "%d %d\n", &vertexA, vertexB);
 
+    //loop through entire array
     for(int i=0; i<maxVertices; i++){
+      //if vertexA isn't unique then break
       if(vertexA==uniqueVertices[i]){
         break;
       }
+      //else if i has reached the end of the array
       else if(i==(maxVertices-1)){
+        //add vertexA into the array at point counter
         uniqueVertices[counter]=vertexA;
+        //increment counter and break
         counter++;
         break;
       }
     }
+    //loop through entire array
     for(int j=0; j<maxVertices; j++){
+      //if vertexB isn't unique then break
       if(vertexB==uniqueVertices[j]){
         break;
       }
+      //else if j has recahed the end of the array
       else if(i==(maxVertices-1)){
+        //add vertexB into the array at point counter
         uniqueVertices[counter]=vertexB;
+        //increment counter and break
         counter++;
         break;
       }

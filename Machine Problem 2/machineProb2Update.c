@@ -31,7 +31,7 @@ typedef struct graphstruct{
   int *visited;
   List *myList;
 }Graph;
-
+ 
 //Graph prototypes
 AdjListNode *createNode(int);
 Graph *createGraph(int);

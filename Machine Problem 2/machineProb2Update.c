@@ -18,9 +18,6 @@ Used as a list that each node contains a separate adj list*/
 typedef struct liststruct{
   int indegree; //the idea of this is to keep track of indegree
   int outdegree; //the idea of this is to keep track of outdegree
-  /*for the indegree and outdegree if we keep track of this then
-  we may just set it to 0 and create a separate function to tell
-  where it is going*/
 	AdjList *myAdjList;
 	struct liststruct *next;
 }List;
@@ -38,12 +35,11 @@ Graph *createGraph(int);
 void readFile(FILE *);
 void addEdge(Graph *,Graph *, int, int);
 void printOutdegrees(Graph *);
-//void fillStack(Graph *, int, bool, int *, int);
-void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter);
+void fillStack(Graph *, int, bool *, int *, int);
 
 
 //void DFS(Graph *, int, bool);
-void DFS(Graph *myGraph, int num, bool visited[]);
+void DFS(Graph *, int, bool *);
 void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
@@ -262,7 +258,7 @@ Graph* createGraph(int vertices){
     alias->next = newListNode;
     alias = newListNode;
   }
-  
+
   return newGraph;
 }
 

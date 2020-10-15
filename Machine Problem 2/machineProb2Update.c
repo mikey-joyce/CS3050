@@ -44,8 +44,8 @@ void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
 //changed to void and should still make sense
-void push(int *, int, int);
-void pop(int);
+int push(int *, int, int);
+int pop(int);
 
 //new prototype
 List *findTargetNode(Graph *, int);
@@ -186,7 +186,7 @@ void findSCC(Graph *graphData1, Graph *graphData2, int vertices, int *myStack, i
 
   while(stackCounter!=-1){
     int targetIndex=myStack[stackCounter];
-    pop(stackCounter);
+    stackCounter=pop(stackCounter);
 
     if(visited[targetIndex]==false){
       printf("SCC %d: \n", count++);
@@ -215,7 +215,6 @@ AdjListNode *createNode(int data){
 Graph* createGraph(int vertices){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
-  List *alias;
 
   //if malloc failed
   if(newGraph == NULL){
@@ -228,7 +227,7 @@ Graph* createGraph(int vertices){
   newGraph->myList=malloc(sizeof(List));
 
   //alias to simplify
-  alias = newGraph->myList;
+  List *alias = newGraph->myList;
 
   //if malloc failed
   if(!alias){
@@ -328,7 +327,7 @@ void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int sta
     //increment current node to next
     currentNode = currentNode->next;
   }
-  push(myStack, stackCounter, data);
+  stackCounter=push(myStack, stackCounter, data);
 }
 
 void transposeGraph(Graph * graphData, int source, int destination){
@@ -364,13 +363,13 @@ int push(int *myStack, int stackCounter, int targetIndex){
 
   //store the target index in the stack
   myStack[stackCounter]=targetIndex;
-	
+
   return stackCounter;
 }
 
 int pop(int stackCounter){
   //decrement our stack
   stackCounter--;
-	
+
   return stackCounter;
 }

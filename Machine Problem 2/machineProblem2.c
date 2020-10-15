@@ -7,6 +7,7 @@ Tasha Ogoti
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdbool.h>
+#include<string.h>
 
 //Represents an adjacency list node
 typedef struct adjlistnodestruct{
@@ -78,8 +79,8 @@ int main(void){
 
   //function for finding outdegrees maybe can be done within SCC
   //findOutdegrees() or printOutdegrees() (or both?)
-  findOutdegrees(graphData1);
-  printOutdegrees(graphData2);
+  //findOutdegrees(graphData1);
+  //printOutdegrees(graphData2);
 	//readFile(fPtr);
 
   //close file and set pointer to NULL
@@ -103,7 +104,7 @@ void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
 int readVertices(FILE *fPtr){
   //track the maximum possible vertices and total vertices
   int maxVertices=0;
-  int totalVertices=0;
+  int counter=0;
 
   //find maximum possible vertices
   while(!feof(fPtr)){
@@ -113,16 +114,16 @@ int readVertices(FILE *fPtr){
   rewind(fPtr);
 
   //create an array of unique vertices if its of value -1 then it is not a vertex
-  int uniqueVertices[maxVertices]={-1};
+  int uniqueVertices[maxVertices];
+  memset(uniqueVertices, -1, maxVertices*sizeof(int));
 
   //while we are not at end of file
   while(!feof(fPtr)){
     //temp vertices and our totalVertices counter
     int vertexA, vertexB;
-    counter=0;
 
     //scan in vertices
-    fscanf(fPtr, "%d %d\n", &vertexA, vertexB);
+    fscanf(fPtr, "%d %d\n", &vertexA, &vertexB);
 
     //loop through entire array
     for(int i=0; i<maxVertices; i++){
@@ -146,7 +147,7 @@ int readVertices(FILE *fPtr){
         break;
       }
       //else if j has recahed the end of the array
-      else if(i==(maxVertices-1)){
+      else if(j==(maxVertices-1)){
         //add vertexB into the array at point counter
         uniqueVertices[counter]=vertexB;
         //increment counter and break
@@ -286,7 +287,7 @@ void DFS(Graph *myGraph, int num, bool visited[]){
   AdjListNode *currentHead = targetNode->myAdjList->head;
 
   //while currentHead exists
-  while (currentHead)
+  while(currentHead!=NULL)
   {
     //if the current head destination doesn't exist in visited
     if (!visited[currentHead->destination])
@@ -355,14 +356,10 @@ void transposeGraph(Graph * graphData, int source, int destination){
   list->myAdjList->head = newNode;
 }
 
-<<<<<<< Updated upstream
-=======
-void findOutdegrees()
-{
+void findOutdegrees(){
 
 }
 
->>>>>>> Stashed changes
 //Changed this function to print out degree since we dont need to print graph
 void printOutdegrees(Graph *mySCC){
   printf("The outdegrees are: ");

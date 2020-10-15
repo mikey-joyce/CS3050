@@ -169,6 +169,7 @@ List *findTargetNode(Graph *graph, int target){
   while(count!=target){
     //increment to next until target node is found
     currentNode=currentNode->next;
+    count++;
   }
 
   //return target node

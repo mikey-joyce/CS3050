@@ -352,6 +352,7 @@ void printOutdegrees(Graph *mySCC){
   while(count!=limit)
   {
     int data = mySCC->myList->myAdjList->head->destination;
+    count++;
     printf("%d ",data);
   }
 }

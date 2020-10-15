@@ -92,20 +92,6 @@ int main(void){
   return 0;
 }
 
-int readVertices(FILE *fPtr){
-  //keep track of vertices
-  int totalVertices=0;
-
-  //while there is still data in the file
-  while(!feof(fPtr)){
-    //add two vertices
-    totalVertices += 2;
-  }
-
-  //return total
-  return totalVertices;
-}
-
 void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
   //while we are not at the end of the file
   while(!feof(fPtr))
@@ -115,6 +101,50 @@ void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
 		fscanf(fPtr, "%d %d\n", &v1, &v2);
 		addEdge(graphData1, graphData2, v1, v2);
 	}
+}
+
+int readVertices(FILE *fPtr){
+  //track the maximum possible vertices and total vertices
+  int maxVertices=0;
+  int totalVertices=0;
+
+  //find maximum possible vertices
+  while(!feof(fPtr)){
+    maxVertices+=2;
+  }
+
+  //create an array of unique vertices if its of value -1 then it is not a vertex
+  int uniqueVertices[maxVertices]={-1};
+
+  while(!feof(fPtr)){
+    int vertexA, vertexB;
+    counter=0;
+
+    fscanf(fPtr, "%d %d\n", &vertexA, vertexB);
+
+    for(int i=0; i<maxVertices; i++){
+      if(vertexA==uniqueVertices[i]){
+        break;
+      }
+      else if(i==(maxVertices-1)){
+        uniqueVertices[counter]=vertexA;
+        counter++;
+        break;
+      }
+    }
+    for(int j=0; j<maxVertices; j++){
+      if(vertexB==uniqueVertices[j]){
+        break;
+      }
+      else if(i==(maxVertices-1)){
+        uniqueVertices[counter]=vertexB;
+        counter++;
+        break;
+      }
+    }
+  }
+
+  return counter;
 }
 
 void readFile(FILE *fPtr){
@@ -345,6 +375,14 @@ void transposeGraph(Graph * graphData, int source, int destination){
   list->myAdjList->head = newNode;
 }
 
+<<<<<<< Updated upstream
+=======
+void findOutdegrees()
+{
+
+}
+
+>>>>>>> Stashed changes
 //Changed this function to print out degree since we dont need to print graph
 void printOutdegrees(Graph *mySCC){
   printf("The outdegrees are: ");

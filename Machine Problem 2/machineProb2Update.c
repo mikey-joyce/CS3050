@@ -215,6 +215,7 @@ AdjListNode *createNode(int data){
 Graph* createGraph(int vertices){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
+  List *alias;
 
   //if malloc failed
   if(newGraph == NULL){
@@ -227,7 +228,7 @@ Graph* createGraph(int vertices){
   newGraph->myList=malloc(sizeof(List));
 
   //alias to simplify
-  List *alias = newGraph->myList;
+  alias = newGraph->myList;
 
   //if malloc failed
   if(!alias){
@@ -357,15 +358,19 @@ void printOutdegrees(Graph *mySCC){
 }
 
 //Stack functions
-void push(int *myStack, int stackCounter, int targetIndex){
+int push(int *myStack, int stackCounter, int targetIndex){
   //increment to the first index
   stackCounter++;
 
   //store the target index in the stack
   myStack[stackCounter]=targetIndex;
+	
+  return stackCounter;
 }
 
-void pop(int stackCounter){
+int pop(int stackCounter){
   //decrement our stack
   stackCounter--;
+	
+  return stackCounter;
 }

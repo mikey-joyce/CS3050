@@ -81,7 +81,8 @@ int main(void){
 
   //function for finding outdegrees maybe can be done within SCC
   //findOutdegrees() or printOutdegrees() (or both?)
-
+  findOutdegrees(graphData1);
+  printOutdegrees(graphData2);
 	//readFile(fPtr);
 
   //close file and set pointer to NULL
@@ -342,11 +343,6 @@ void transposeGraph(Graph * graphData, int source, int destination){
 
   //set the current head to be the new node
   list->myAdjList->head = newNode;
-}
-
-void findOutdegrees()
-{
-   	
 }
 
 //Changed this function to print out degree since we dont need to print graph

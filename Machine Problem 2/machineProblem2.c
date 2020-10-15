@@ -1,3 +1,9 @@
+/*CS 3050 Machine Problem 2 Built by:
+Mikey Joyce
+Sarah Duong
+Tasha Ogoti
+*/
+
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdbool.h>

@@ -344,6 +344,11 @@ void transposeGraph(Graph * graphData, int source, int destination){
   list->myAdjList->head = newNode;
 }
 
+void findOutdegrees()
+{
+   	
+}
+
 //Changed this function to print out degree since we dont need to print graph
 void printOutdegrees(Graph *mySCC){
   printf("The outdegrees are: ");

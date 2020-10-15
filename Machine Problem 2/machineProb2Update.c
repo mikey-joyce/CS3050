@@ -44,8 +44,8 @@ void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
 //changed to void and should still make sense
-void *push(int *, int, int);
-void *pop(int);
+void push(int *, int, int);
+void pop(int);
 
 //new prototype
 List *findTargetNode(Graph *, int);
@@ -215,7 +215,6 @@ AdjListNode *createNode(int data){
 Graph* createGraph(int vertices){
   //declare and allocate memory to the new graph
   Graph *newGraph=malloc(sizeof(Graph));
-  List *alias;
 
   //if malloc failed
   if(newGraph == NULL){
@@ -228,7 +227,7 @@ Graph* createGraph(int vertices){
   newGraph->myList=malloc(sizeof(List));
 
   //alias to simplify
-  alias = newGraph->myList;
+  List *alias = newGraph->myList;
 
   //if malloc failed
   if(!alias){
@@ -358,7 +357,7 @@ void printOutdegrees(Graph *mySCC){
 }
 
 //Stack functions
-void *push(int *myStack, int stackCounter, int targetIndex){
+void push(int *myStack, int stackCounter, int targetIndex){
   //increment to the first index
   stackCounter++;
 
@@ -366,7 +365,7 @@ void *push(int *myStack, int stackCounter, int targetIndex){
   myStack[stackCounter]=targetIndex;
 }
 
-void *pop(int stackCounter){
+void pop(int stackCounter){
   //decrement our stack
   stackCounter--;
 }

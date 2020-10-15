@@ -38,28 +38,19 @@ typedef struct graphstruct{
 //Graph prototypes
 AdjListNode *createNode(int);
 Graph *createGraph(int);
-void readFile(FILE *);
+int readVertices(FILE *);
+void readEdges(FILE *, Graph *, Graph *);
 void addEdge(Graph *,Graph *, int, int);
 void printOutdegrees(Graph *);
 void fillStack(Graph *, int, bool *, int *, int);
-
-
-//void DFS(Graph *, int, bool);
 void DFS(Graph *, int, bool *);
 void transposeGraph(Graph *, int, int);
-
-//Stack Function Prototypes
-//changed to void and should still make sense
-int push(int *, int, int);
-int pop(int);
-
-//new prototype
 List *findTargetNode(Graph *, int);
 void findSCC(Graph *, Graph *, int, int *, int);
 
-//proposed functions instead of readFile
-int readVertices(FILE *);
-void readEdges(FILE *, Graph *, Graph *);
+//Stack Function Prototypes
+int push(int *, int, int);
+int pop(int);
 
 int main(void){
   //open file
@@ -166,39 +157,6 @@ int readVertices(FILE *fPtr){
   }
 
   return counter;
-}
-
-void readFile(FILE *fPtr){
-  int numOfLines = 0, next, destination;
-  int line = 1;
-  int length = 0;
-
-   //Loops through the file to find the largest vertex
-   while(!feof(fPtr))
-   {
-	    int startV,endV;
-
-	    fscanf(fPtr, "%d %d\n", &startV, &endV);
-	    if(startV >= endV && startV > length)
-	    {
-	      length = startV;
-	    }
-	    else if(endV >= startV && endV > length)
-	    {
-	       length = endV;
-      }
-   }
-   //printf("The size of the graph should be %d\n",length);
-
-  //Sets the pointer back to the beginning of the file
-  rewind(fPtr);
-
-	while(fscanf(fPtr, "%d %d", &next, &destination) == 2){
-		numOfLines++;
-
-    printf("%d: Next: %d, Destination: %d\n", line, next, destination);
-    line++;
-	}
 }
 
 List *findTargetNode(Graph *graph, int target){

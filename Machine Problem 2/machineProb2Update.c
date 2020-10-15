@@ -6,11 +6,11 @@
 typedef struct adjlistnodestruct{
   int destination;
   struct adjlistnodestruct *next;
-}AdjListnode;
+}AdjListNode;
 
 //Represents and adjacency list
 typedef struct adjliststruct{
-  AdjListNode *head;
+  struct AdjListNode *head;
 }AdjList;
 
 /*Basic Linked list
@@ -31,15 +31,19 @@ typedef struct graphstruct{
   int *visited;
   List *myList;
 }Graph;
- 
+
 //Graph prototypes
-AdjListNode *createNode(int);
+struct AdjListNode *createNode(int);
 Graph *createGraph(int);
 void readFile(FILE *);
 void addEdge(Graph *,Graph *, int, int);
 void printOutdegrees(Graph *);
-void fillStack(Graph *, int, bool, int *, int);
-void DFS(Graph *, int, bool);
+//void fillStack(Graph *, int, bool, int *, int);
+void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter);
+
+
+//void DFS(Graph *, int, bool);
+void DFS(Graph *myGraph, int num, bool visited[]);
 void transposeGraph(Graph *, int, int);
 
 //Stack Function Prototypes
@@ -107,7 +111,15 @@ int readVertices(FILE *fPtr){
 
 void readEdges(FILE *fPtr, Graph *graphData1, Graph *graphData2){
   //You have to add an edge like:
+  while(!feof(fPtr))
+	{
+		int v1;
+		int v2;
+		fscanf(fPtr, "%d %d\n", &v1, &v2);
+		addEdge(graphData1, graphData2, v1, v2);
+	}
   //addEdge(graphData1, graphData2, vertexA, vertexB);
+  return;
 }
 
 void readFile(FILE *fPtr){
@@ -145,7 +157,8 @@ void readFile(FILE *fPtr){
 
 List *findTargetNode(Graph *graph, int target){
   //Initialize our current node and create counter
-  List currentNode=graph->myList;
+  List *currentNode;
+  currentNode = graph->myList;
   int count=0;
 
   //traverse the list until we hit target node
@@ -157,6 +170,7 @@ List *findTargetNode(Graph *graph, int target){
   //return target node
   return currentNode;
 }
+
 
 void findSCC(Graph *graphData1, Graph *graphData2, int vertices, int *myStack, int stackCounter){
   bool visited[vertices];
@@ -189,9 +203,9 @@ void findSCC(Graph *graphData1, Graph *graphData2, int vertices, int *myStack, i
 }
 
 //create a new adj list node
-AdjListNode* createNode(int data){
+struct AdjListNode* createNode(int data){
   //Declare and allocate memory to the new node
-  AdjListNode * newNode = malloc(sizeof(AdjListNode));
+  struct AdjListNode * newNode = malloc(sizeof(AdjListNode));
 
   //check to see if malloc worked
   if(newNode){
@@ -254,7 +268,7 @@ Graph* createGraph(int vertices){
 
 void DFS(Graph *myGraph, int num, bool visited[]){
   //find target node
-  List *targetNode=findTargetNode(myGraph, num);
+  List *targetNode = findTargetNode(myGraph, num);
 
   //keep track of visited
   visited[num] = true;
@@ -263,7 +277,7 @@ void DFS(Graph *myGraph, int num, bool visited[]){
   printf("%d ", num);
 
   //set current head to be head of the targetNodes list
-  AdjListNode *currentHead = targetNode->myAdjList->head;
+  struct AdjListNode *currentHead = targetNode->myAdjList->head;
 
   //while currentHead exists
   while (currentHead)
@@ -272,7 +286,7 @@ void DFS(Graph *myGraph, int num, bool visited[]){
     if (!visited[currentHead->destination])
     {
       //call DFS
-      DFS(myGraph, currentHead->destination, visit);
+      DFS(myGraph, currentHead->destination, visited);
     }
     //increment hold to next
     currentHead = currentHead->next;
@@ -281,7 +295,7 @@ void DFS(Graph *myGraph, int num, bool visited[]){
 
 void addEdge(Graph *graphData1, Graph *graphData2, int source, int destination){
   //create a new node
-  AdjListNode *newNode=createNode(destination);
+  struct AdjListNode *newNode = createNode(destination);
 
   //find target nodes for both lists
   List *myList1=findTargetNode(graphData1, source);
@@ -299,12 +313,12 @@ void addEdge(Graph *graphData1, Graph *graphData2, int source, int destination){
 
 void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter){
   //find target node
-  List *targetNode=findTargetNode(graphData, data);
+  List *targetNode = findTargetNode(graphData, data);
   //array of visited
   visited[data] = true;
 
   //set n to be head of the list that belongs to the target node
-  AdjListNode *currentNode = targetNode->myAdjList->head;
+  struct AdjListNode *currentNode = targetNode->myAdjList->head;
 
   //while our node exists
   while(currentNode)
@@ -323,7 +337,7 @@ void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int sta
 
 void transposeGraph(Graph * graphData, int source, int destination){
   //create new node
-  AdjListNode *newNode = createNode(source);
+  struct AdjListNode *newNode = createNode(source);
 
   //Find target node
   List *list=findTargetNode(graphData, destination);
@@ -338,6 +352,13 @@ void transposeGraph(Graph * graphData, int source, int destination){
 //Changed this function to print out degree since we dont need to print graph
 void printOutdegrees(Graph *mySCC){
   printf("The outdegrees are: ");
+  int count=0;
+  int limit = mySCC->myList->outdegree;
+  while(count!=limit)
+  {
+    int data = mySCC->myList->myAdjList->head->destination;
+    printf("%d ",data);
+  }
 }
 
 //Stack functions
@@ -352,4 +373,4 @@ void *push(int *myStack, int stackCounter, int targetIndex){
 void *pop(int stackCounter){
   //decrement our stack
   stackCounter--;
-}
+} 

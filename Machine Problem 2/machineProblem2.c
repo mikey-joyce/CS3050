@@ -68,13 +68,16 @@ int main(void){
   int stackCounter=-1;
 
   //Find graph data
+  printf("Create graph\n");
   Graph *graphData1=createGraph(totalVertices);
   Graph *graphData2=createGraph(totalVertices);
 
   //read in the edges
+  printf("Read edges\n");
   readEdges(fPtr, graphData1, graphData2);
 
   //find the SCC graph
+  printf("Find scc\n");
   findSCC(graphData1, graphData2, totalVertices, myStack, stackCounter);
 
   //function for finding outdegrees maybe can be done within SCC
@@ -108,8 +111,11 @@ int readVertices(FILE *fPtr){
 
   //find maximum possible vertices
   while(!feof(fPtr)){
+    int v1, v2;
+    fscanf(fPtr, "%d %d\n", &v1, &v2);
     maxVertices+=2;
   }
+  printf("%d\n", maxVertices);
 
   rewind(fPtr);
 

@@ -1,3 +1,6 @@
+/* The program is in linear time because algorithms are equal to or less than O(v+e) time, as there is nothing
+larger than the original list being accessed to find the outdegrees of the SCCs. */
+
 /*CS 3050 Machine Problem 2 Built by:
 Mikey Joyce
 Sarah Duong

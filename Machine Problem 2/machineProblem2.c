@@ -41,6 +41,7 @@ int fillStack(Graph *, int, bool *, int *, int);
 void DFS(Graph *, int, bool *, int *, int);
 void transposeGraph(Graph *, int, int);
 void findSCC(Graph *, Graph *, int, int *, int);
+void freeFunc(Graph *, int);
 
 //Stack Function Prototypes
 int push(int *, int, int);
@@ -77,11 +78,11 @@ int main(void)
     findSCC(graphData1, graphData2, totalVertices, myStack, stackCounter);
     printf("SCC found\n");
     //function for finding outdegrees maybe can be done within SCC
-    //findOutdegrees() or printOutdegrees() (or both?)
-    findOutdegrees(fPtr, graphData1, graphData1->visited);
-    //printOutdegrees(graphData2);
-    //readFile(fPtr);
 
+    findOutdegrees(fPtr, graphData1, graphData1->visited);
+    printOutdegrees(graphData2);
+
+    freeFunc(graphData1, totalVertices);
     //close file and set pointer to NULL
     fclose(fPtr);
     fPtr = NULL;
@@ -379,4 +380,20 @@ int pop(int stackCounter)
     stackCounter--;
 
     return stackCounter;
+}
+
+void freeFunc(Graph * myGraph, int totalVertices)
+{
+    for (int i = 0; i < totalVertices + 1; i++)
+    {
+        AdjListNode * hold = myGraph->myArray[i].head;
+        AdjListNode * nodeToFree;
+        while (hold)
+        {
+            nodeToFree = hold;
+            hold = nodeToFree->next;
+            free(nodeToFree);
+        }
+    }
+    free(myGraph); // free graph
 }

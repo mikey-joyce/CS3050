@@ -34,7 +34,7 @@ int readVertices(FILE *);
 void readEdges(FILE *, Graph *, Graph *);
 void addEdge(Graph *,Graph *, int, int);
 void printOutdegrees(Graph *);
-void fillStack(Graph *, int, bool *, int *, int);
+int fillStack(Graph *, int, bool *, int *, int);
 void DFS(Graph *, int, bool *);
 void transposeGraph(Graph *, int, int);
 void findSCC(Graph *, Graph *, int, int *, int);
@@ -165,7 +165,7 @@ void findSCC(Graph *graphData1, Graph *graphData2, int vertices, int *myStack, i
 
   for(int j=0; j<vertices; j++){
     if(visited[j]==false){
-      fillStack(graphData1, j, visited, myStack, stackCounter);
+      stackCounter=fillStack(graphData1, j, visited, myStack, stackCounter);
     }
   }
 
@@ -267,7 +267,7 @@ void addEdge(Graph *graphData1, Graph *graphData2, int source, int destination){
   transposeGraph(graphData2, source, destination);
 }
 
-void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter){
+int fillStack(Graph *graphData, int data, bool visited[], int *myStack, int stackCounter){
   //array of visited
   visited[data] = true;
 
@@ -287,6 +287,8 @@ void fillStack(Graph *graphData, int data, bool visited[], int *myStack, int sta
     currentNode = currentNode->next;
   }
   stackCounter=push(myStack, stackCounter, data);
+
+  return stackCounter;
 }
 
 void transposeGraph(Graph * graphData, int source, int destination){

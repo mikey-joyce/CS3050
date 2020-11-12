@@ -39,7 +39,7 @@ Graph *createGraph(int);
 int readVertices(FILE *);
 void readEdges(FILE *, Graph *, Graph *);
 void addEdge(Graph *, Graph *, int, int);
-void printOutdegrees(Graph *);
+//void printOutdegrees(Graph *);
 int fillStack(Graph *, int, bool *, int *, int);
 void DFS(Graph *, int, bool *, int *, int);
 void transposeGraph(Graph *, int, int);
@@ -83,7 +83,7 @@ int main(void)
     //function for finding outdegrees maybe can be done within SCC
 
     findOutdegrees(fPtr, graphData1, graphData1->visited);
-    printOutdegrees(graphData2);
+    //printOutdegrees(graphData2);
 
     freeFunc(graphData1, totalVertices);
     //close file and set pointer to NULL

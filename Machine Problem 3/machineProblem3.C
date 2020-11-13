@@ -98,14 +98,14 @@ int main(void){
         //if the character is C then read in the index and key
         fscanf(fPtr, " %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
-        heapChangeKey(myHeap, heapSize, i, v);
+        heapChangeKey(myHeap, heapSize, i-1, v);
         buildMaxHeap(myHeap, heapSize);
         break;
       case 3:
         //if the character is D then read in the index
         fscanf(fPtr, " %d\n", &i);
         //delete key at index i in the heap
-        heapSize = delete(myHeap, heapSize, i);
+        heapSize = delete(myHeap, heapSize, i-1);
         buildMaxHeap(myHeap, heapSize);
         break;
       case 4:
@@ -198,7 +198,14 @@ void heapChangeKey(int *myHeap, int size, int target, int value){
   maxHeapify(myHeap, size, target);
 }
 
-/**/
+/*This function takes in a heap, the size of the heap,
+and the target index that we are trying to delete. It will
+then check to see if we are at the end of the array. If
+we are at the end of the array then it will just delete
+that node. If not then it will replace every node
+to the right of it with the one directly to the right of
+it. After this the new size is returned and the old
+node can no longer be accessed.*/
 int delete(int *myHeap, int size, int target){
   if(size){
     size = size - 1;

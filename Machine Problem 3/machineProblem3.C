@@ -9,8 +9,8 @@ Tasha Ogoti*/
 #include <string.h>
 
 //Constant function definitions
-#define LCHILD(x) 2 * x + 1
-#define RCHILD(x) 2 * x + 2
+#define LCHILD(x) (2 * x) + 1
+#define RCHILD(x) (2 * x) + 2
 #define PARENT(x) (x - 1) / 2
 
 //prototypes
@@ -26,8 +26,6 @@ int delete(int *, int, int);
 void printHeap(int *, int);
 
 int main(void){
-  //most will consist of reading the file
-
   //open file
   FILE *fPtr = fopen("test.txt", "r");
 
@@ -207,22 +205,24 @@ to the right of it with the one directly to the right of
 it. After this the new size is returned and the old
 node can no longer be accessed.*/
 int delete(int *myHeap, int size, int target){
-  if(size){
-    size = size - 1;
+  //decrease size
+  size = size - 1;
 
-    if(target==size){
-      myHeap[target] = 0;
-    }
-    else{
-      for(; target<=size; target++){
-        myHeap[target]=myHeap[target+1];
-      }
-      myHeap[size] = 0;
-    }
+  //if the target is the last node
+  if(target==size){
+    //delete node
+    myHeap[target] = 0;
   }
   else{
-    printf("Heap is empty.\n");
+    //if the target isn't the last node
+    for(; target<=size; target++){
+      //replace every node to the right with the one before it
+      myHeap[target]=myHeap[target+1];
+    }
+    //delete the last node
+    myHeap[size] = 0;
   }
 
+  //return the new size
   return size;
 }

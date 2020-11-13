@@ -23,6 +23,7 @@ void insert(int *, int);
 void maxHeapify(int *, int, int);
 void heapChangeKey(int *, int, int);
 void delete(int *, int);
+void printHeap(int *, int);
 
 int main(void){
   //most will consist of reading the file
@@ -37,10 +38,16 @@ int main(void){
   int heapSize = 0;
   fscanf(fPtr, "%d\n", &heapSize);
 
+  //loop through the nodes of the heap
+  for(int i=0; i<heapSize; i++){
+    //scan in the value
+    fscanf(fPtr, "%d\n", &(myHeap[i]));
+  }
+
   //build the heap so that we can perform remaining operations
   buildMaxHeap(myHeap, heapSize);
 
-  //loop through the remaining lines
+  /*//loop through the remaining lines
   while(!feof(fPtr)){
     char temp;
     int i, v;
@@ -70,23 +77,27 @@ int main(void){
         //extract max
         break;
     }
-  }
+  }*/
+
+  printHeap(myHeap, heapSize);
 
   fclose(fPtr);
   fPtr = NULL;
 }
 
+/*This function traverses the heap and prints out each node.*/
+void printHeap(int *myHeap, int size){
+  //traverse heap
+  for(int i=0; i<size; i++){
+    //print value
+    printf("%d ", myHeap[i]);
+  }
+}
+
 /*This function is passed an array: 'myHeap' and the size of the
-heap: 'size' This function reads through the given file size times and adds
-the given data into an array. After this it makes sure the heap
+heap: 'size'. This function makes sure the heap
 property is satified so that a max-heap is built. */
 void buildMaxHeap(int *myHeap, int size){
-  //loop through the nodes of the heap
-  for(int i=0; i<size; i++){
-    //scan in the value
-    fscanf(fPtr, "%d\n", &(myHeap[i]));
-  }
-
   //make sure heap property is satisfied
   for(int i=((size-1)/2); i>=0; i--){
     maxHeapify(myHeap, size, i);
@@ -100,18 +111,18 @@ are the largest then the nodes are swapped. It then recursively traverses
 the max-heap until the max-heap property is satisfied.*/
 void maxHeapify(int *myHeap, int size, int index){
   //define largest
-  int largest = (LCHILD(i) < size && myHeap[LCHILD(i)] > myHeap[i]) ? LCHILD(i) : i;
+  int largest = (LCHILD(index) < size && myHeap[LCHILD(index)] > myHeap[index]) ? LCHILD(index) : index;
 
   //make sure the largest is actually the largest
-  if(RCHILD(i) < size && myHeap[RCHILD(i)] > myHeap[largest]){
-    largest = RCHILD(i);
+  if(RCHILD(index) < size && myHeap[RCHILD(index)] > myHeap[largest]){
+    largest = RCHILD(index);
   }
 
   //go down the heap
-  if(largest != i){
+  if(largest != index){
     //swap myHeap[i] and myHeap[largest]
-    int temp = myHeap[i];
-    myHeap[i] = myHeap[largest];
+    int temp = myHeap[index];
+    myHeap[index] = myHeap[largest];
     myHeap[largest] = temp;
 
     //go down again

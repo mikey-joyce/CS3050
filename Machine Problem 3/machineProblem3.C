@@ -6,7 +6,6 @@ Tasha Ogoti*/
 //libraries
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 //Constant function definitions
 #define LCHILD(x) 2 * x + 1
@@ -19,10 +18,10 @@ MAKE SURE TO ADD COMMENTS
 BEFORE EACH FUNCTION TO EXPLAIN
 WHAT THE CODE DOES. IT IS FOR POINTS.*/
 void buildMaxHeap(int *, int);
-void insert(int *, int);
+int insert(int *, int, int);
 void maxHeapify(int *, int, int);
-void heapChangeKey(int *, int, int);
-void delete(int *, int);
+void heapChangeKey(int *, int, int, int);
+int delete(int *, int, int);
 void printHeap(int *, int);
 
 int main(void){
@@ -47,6 +46,17 @@ int main(void){
   //build the heap so that we can perform remaining operations
   buildMaxHeap(myHeap, heapSize);
 
+  //!!! Test Operations !!!
+  heapSize = insert(myHeap, heapSize, 7);
+  //heapSize = delete(myHeap, heapSize, 0);
+  //heapChangeKey(myHeap, heapSize, 3, 9);
+  //heapSize = delete(myHeap, heapSize, 0);
+  //heapSize = delete(myHeap, heapSize, 2);
+
+
+  /*!!! This loops through the rest of the FILE
+  and performs the operations as needed due to the
+  switch case statement. !!!*/
   /*//loop through the remaining lines
   while(!feof(fPtr)){
     char temp;
@@ -58,23 +68,23 @@ int main(void){
         //if the character is I then read in the key
         fscanf(" %d\n", &v);
         //insert new key v
-        insert(myHeap, v);
+        insert(myHeap, heapSize, v);
         break;
       case "C":
         //if the character is C then read in the index and key
         fscanf(" %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
-        heapChangeKey(myHeap, i, v);
+        heapChangeKey(myHeap, heapSize, i, v);
         break;
       case "D":
         //if the character is D then read in the index
         fscanf(" %d\n", &i);
         //delete key at index i in the heap
-        delete(myHeap, i);
+        heapSize = delete(myHeap, heapSize, i);
         break;
       case default:
         fscanf("\n");
-        //extract max
+        //heapSize = delete(myHeap, heapSize, 0);
         break;
     }
   }*/
@@ -92,6 +102,7 @@ void printHeap(int *myHeap, int size){
     //print value
     printf("%d ", myHeap[i]);
   }
+  printf("\n");
 }
 
 /*This function is passed an array: 'myHeap' and the size of the
@@ -110,6 +121,8 @@ either the parent or one of the two children. After this if the children
 are the largest then the nodes are swapped. It then recursively traverses
 the max-heap until the max-heap property is satisfied.*/
 void maxHeapify(int *myHeap, int size, int index){
+  //printf("\nThe Left Child of %d is: %d\n", index, LCHILD(index));
+
   //define largest
   int largest = (LCHILD(index) < size && myHeap[LCHILD(index)] > myHeap[index]) ? LCHILD(index) : index;
 
@@ -128,4 +141,40 @@ void maxHeapify(int *myHeap, int size, int index){
     //go down again
     maxHeapify(myHeap, size, largest);
   }
+}
+
+/*This function takes in a heap, the size of the heap and
+a key value. It then increases the size by one and
+inserts the new node into the heap. After this we
+heapify so that it satisfies the max-heap property.
+At the end we return the new size.*/
+int insert(int *myHeap, int size, int value){
+  //increase size by one
+  size++;
+
+  //set last index to be our value
+  myHeap[size-1] = value;
+
+  //bubble up the heap
+  maxHeapify(myHeap, size, size-1);
+
+  //return the new size
+  return size;
+}
+
+/*This function replaces the heap at target to the new value.
+At the end it restores the max heap property by calling
+maxHeapif();*/
+void heapChangeKey(int *myHeap, int size, int target, int value){
+  //change the target value
+  myHeap[target]=value;
+
+  //restore the max heap property
+  maxHeapify(myHeap, size, target);
+}
+
+/**/
+int delete(int *myHeap, int size, int target){
+
+  return size;
 }

@@ -164,7 +164,7 @@ int insert(int *myHeap, int size, int value){
 
 /*This function replaces the heap at target to the new value.
 At the end it restores the max heap property by calling
-maxHeapif();*/
+maxHeapify();*/
 void heapChangeKey(int *myHeap, int size, int target, int value){
   //change the target value
   myHeap[target]=value;

@@ -48,10 +48,19 @@ int main(void){
 
   //!!! Test Operations !!!
   heapSize = insert(myHeap, heapSize, 7);
+  buildMaxHeap(myHeap, heapSize);
+
   //heapSize = delete(myHeap, heapSize, 0);
-  //heapChangeKey(myHeap, heapSize, 3, 9);
+  //buildMaxHeap(myHeap, heapSize);
+
+  heapChangeKey(myHeap, heapSize, 3, 9);
+  buildMaxHeap(myHeap, heapSize);
+
   //heapSize = delete(myHeap, heapSize, 0);
+  //buildMaxHeap(myHeap, heapSize);
+
   //heapSize = delete(myHeap, heapSize, 2);
+  //buildMaxHeap(myHeap, heapSize);
 
 
   /*!!! This loops through the rest of the FILE
@@ -68,23 +77,27 @@ int main(void){
         //if the character is I then read in the key
         fscanf(" %d\n", &v);
         //insert new key v
-        insert(myHeap, heapSize, v);
+        heapSize = insert(myHeap, heapSize, v);
+        buildMaxHeap(myHeap, heapSize);
         break;
       case "C":
         //if the character is C then read in the index and key
         fscanf(" %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
         heapChangeKey(myHeap, heapSize, i, v);
+        buildMaxHeap(myHeap, heapSize);
         break;
       case "D":
         //if the character is D then read in the index
         fscanf(" %d\n", &i);
         //delete key at index i in the heap
         heapSize = delete(myHeap, heapSize, i);
+        buildMaxHeap(myHeap, heapSize);
         break;
       case default:
         fscanf("\n");
         //heapSize = delete(myHeap, heapSize, 0);
+        buildMaxHeap(myHeap, heapSize);
         break;
     }
   }*/
@@ -121,8 +134,6 @@ either the parent or one of the two children. After this if the children
 are the largest then the nodes are swapped. It then recursively traverses
 the max-heap until the max-heap property is satisfied.*/
 void maxHeapify(int *myHeap, int size, int index){
-  //printf("\nThe Left Child of %d is: %d\n", index, LCHILD(index));
-
   //define largest
   int largest = (LCHILD(index) < size && myHeap[LCHILD(index)] > myHeap[index]) ? LCHILD(index) : index;
 
@@ -175,6 +186,5 @@ void heapChangeKey(int *myHeap, int size, int target, int value){
 
 /**/
 int delete(int *myHeap, int size, int target){
-
   return size;
 }

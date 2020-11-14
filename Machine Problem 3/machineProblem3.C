@@ -38,28 +38,6 @@ int main(void){
 
   //build the heap so that we can perform remaining operations
   buildMaxHeap(myHeap, heapSize);
-  /*printHeap(myHeap, heapSize);
-
-  //!!! Test Operations !!!
-  heapSize = insert(myHeap, heapSize, 7);
-  buildMaxHeap(myHeap, heapSize);
-  printHeap(myHeap, heapSize);
-
-  heapSize = delete(myHeap, heapSize, 1-1);
-  buildMaxHeap(myHeap, heapSize);
-  printHeap(myHeap, heapSize);
-
-  heapChangeKey(myHeap, heapSize, 3-1, 9);
-  buildMaxHeap(myHeap, heapSize);
-  printHeap(myHeap, heapSize);
-
-  heapSize = delete(myHeap, heapSize, 1-1);
-  buildMaxHeap(myHeap, heapSize);
-  printHeap(myHeap, heapSize);
-
-  heapSize = delete(myHeap, heapSize, 2-1);
-  buildMaxHeap(myHeap, heapSize);*/
-
 
   /*!!! This loops through the rest of the FILE
   and performs the operations as needed due to the

@@ -7,9 +7,9 @@ Tasha Ogoti*/
 #include <stdio.h>
 
 //Constant function definitions
-#define LCHILD(x) (2 * x) + 1
-#define RCHILD(x) (2 * x) + 2
-#define PARENT(x) (x - 1) / 2
+#define LCHILD(index) (2 * index) + 1
+#define RCHILD(index) (2 * index) + 2
+#define PARENT(index) (index - 1) / 2
 
 //prototypes
 void buildMaxHeap(int *, int);
@@ -45,7 +45,7 @@ int main(void){
   //loop through the remaining lines
   while(!feof(fPtr)){
     //declare my characters for comparison
-    char temp, ii='I', c='C', d='D';
+    char temp;
 
     //declare my index, value, and test variables
     int i, v, test=0;
@@ -54,15 +54,15 @@ int main(void){
     fscanf(fPtr, "%c", &temp);
 
     //check to see if the letter is 'I', 'C', 'D', or 'E'
-    if(temp==ii){
+    if(temp=='I'){
       //'I'
       test=1;
     }
-    else if(temp==c){
+    else if(temp=='C'){
       //'C'
       test=2;
     }
-    else if(temp==d){
+    else if(temp=='D'){
       //'D'
       test=3;
     }

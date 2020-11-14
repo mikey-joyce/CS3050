@@ -44,7 +44,6 @@ int main(void){
 
   //build the heap so that we can perform remaining operations
   buildMaxHeap(myHeap, heapSize);
-
   printHeap(myHeap, heapSize);
 
   //!!! Test Operations !!!
@@ -203,30 +202,33 @@ void heapChangeKey(int *myHeap, int size, int target, int value){
 }
 
 /*This function takes in a heap, the size of the heap,
-and the target index that we are trying to delete. It will
-then check to see if we are at the end of the array. If
-we are at the end of the array then it will just delete
-that node. If not then it will replace every node
-to the right of it with the one directly to the right of
-it. After this the new size is returned and the old
-node can no longer be accessed.*/
+and a target node to delete. After this it decrements
+the size since we are deleting a node. It checks to see
+if the target is already the root, if the target is
+the root it replaces the root and heapifies. If the
+target is not the root, the target and root are switched
+and then it replaces the root and heapifies. The new
+size is returned at the end.*/
 int delete(int *myHeap, int size, int target){
-  //decrease size
-  size = size - 1;
+  //decrement size because we need one less node
+  size--;
 
-  //if the target is the last node
-  if(target==size){
-    //delete node
-    myHeap[target] = 0;
+  //if the target is the root
+  if(target==0){
+    //replace and heapify
+    myHeap[0]=myHeap[size];
+    maxHeapify(myHeap, size, 0);
   }
+  //if target is not the root
   else{
-    //if the target isn't the last node
-    for(; target<=size; target++){
-      //replace every node to the right with the one before it
-      myHeap[target]=myHeap[target+1];
-    }
-    //delete the last node
-    myHeap[size] = 0;
+    //swap target and the root
+    int temp=myHeap[0];
+    myHeap[0]=myHeap[target];
+    myHeap[target]=temp;
+
+    //replace and heapify
+    myHeap[0]=myHeap[size];
+    maxHeapify(myHeap, size, 0);
   }
 
   //return the new size

@@ -7,9 +7,8 @@ Tasha Ogoti*/
 #include <stdio.h>
 
 //Constant function definitions
-#define LCHILD(index) (2 * index) + 1
-#define RCHILD(index) (2 * index) + 2
-#define PARENT(index) (index - 1) / 2
+#define L_CHILD(index) (2 * index) + 1
+#define R_CHILD(index) (2 * index) + 2
 
 //prototypes
 void buildMaxHeap(int *, int);
@@ -44,7 +43,7 @@ int main(void){
   switch case statement. !!!*/
   //loop through the remaining lines
   while(!feof(fPtr)){
-    //declare my characters for comparison
+    //declare temporary character holder
     char temp;
 
     //declare my index, value, and test variables
@@ -141,22 +140,22 @@ are the largest then the nodes are swapped. It then recursively traverses
 the max-heap until the max-heap property is satisfied.*/
 void maxHeapify(int *myHeap, int size, int index){
   //define largest
-  int largest = (LCHILD(index) < size && myHeap[LCHILD(index)] > myHeap[index]) ? LCHILD(index) : index;
+  int largestNode = (L_CHILD(index) < size && myHeap[L_CHILD(index)] > myHeap[index]) ? L_CHILD(index) : index;
 
   //make sure the largest is actually the largest
-  if(RCHILD(index) < size && myHeap[RCHILD(index)] > myHeap[largest]){
-    largest = RCHILD(index);
+  if(R_CHILD(index) < size && myHeap[R_CHILD(index)] > myHeap[largestNode]){
+    largestNode = R_CHILD(index);
   }
 
   //go down the heap
-  if(largest != index){
+  if(largestNode != index){
     //swap myHeap[i] and myHeap[largest]
     int temp = myHeap[index];
-    myHeap[index] = myHeap[largest];
-    myHeap[largest] = temp;
+    myHeap[index] = myHeap[largestNode];
+    myHeap[largestNode] = temp;
 
     //go down again
-    maxHeapify(myHeap, size, largest);
+    maxHeapify(myHeap, size, largestNode);
   }
 }
 

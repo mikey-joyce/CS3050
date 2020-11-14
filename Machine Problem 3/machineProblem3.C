@@ -5,8 +5,6 @@ Tasha Ogoti*/
 
 //libraries
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 //Constant function definitions
 #define LCHILD(x) (2 * x) + 1
@@ -14,10 +12,6 @@ Tasha Ogoti*/
 #define PARENT(x) (x - 1) / 2
 
 //prototypes
-/*!!! IMPORTANT !!!
-MAKE SURE TO ADD COMMENTS
-BEFORE EACH FUNCTION TO EXPLAIN
-WHAT THE CODE DOES. IT IS FOR POINTS.*/
 void buildMaxHeap(int *, int);
 int insert(int *, int, int);
 void maxHeapify(int *, int, int);
@@ -44,7 +38,7 @@ int main(void){
 
   //build the heap so that we can perform remaining operations
   buildMaxHeap(myHeap, heapSize);
-  printHeap(myHeap, heapSize);
+  /*printHeap(myHeap, heapSize);
 
   //!!! Test Operations !!!
   heapSize = insert(myHeap, heapSize, 7);
@@ -64,37 +58,49 @@ int main(void){
   printHeap(myHeap, heapSize);
 
   heapSize = delete(myHeap, heapSize, 2-1);
-  buildMaxHeap(myHeap, heapSize);
+  buildMaxHeap(myHeap, heapSize);*/
 
 
   /*!!! This loops through the rest of the FILE
   and performs the operations as needed due to the
   switch case statement. !!!*/
   //loop through the remaining lines
-  /*while(!feof(fPtr)){
-    char temp;
+  while(!feof(fPtr)){
+    //declare my characters for comparison
+    char temp, ii='I', c='C', d='D';
+
+    //declare my index, value, and test variables
     int i, v, test=0;
+
+    //scan in the letter
     fscanf(fPtr, "%c", &temp);
 
-    if(strcmp(&temp, "I")==0){
+    //check to see if the letter is 'I', 'C', 'D', or 'E'
+    if(temp==ii){
+      //'I'
       test=1;
     }
-    else if(strcmp(&temp, "C")==0){
+    else if(temp==c){
+      //'C'
       test=2;
     }
-    else if(strcmp(&temp, "D")==0){
+    else if(temp==d){
+      //'D'
       test=3;
     }
     else{
+      //'E'
       test=4;
     }
 
+    //if it is of type I, C, D, or E
     switch(test){
       case 1:
         //if the character is I then read in the key
         fscanf(fPtr, " %d\n", &v);
         //insert new key v
         heapSize = insert(myHeap, heapSize, v);
+        //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
       case 2:
@@ -102,6 +108,7 @@ int main(void){
         fscanf(fPtr, " %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
         heapChangeKey(myHeap, heapSize, i-1, v);
+        //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
       case 3:
@@ -109,15 +116,19 @@ int main(void){
         fscanf(fPtr, " %d\n", &i);
         //delete key at index i in the heap
         heapSize = delete(myHeap, heapSize, i-1);
+        //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
       case 4:
+        //if the character is E then read in the newline
         fscanf(fPtr, "\n");
+        //delete the root
         heapSize = delete(myHeap, heapSize, 0);
+        //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
     }
-  }*/
+  }
 
   printHeap(myHeap, heapSize);
 

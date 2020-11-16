@@ -47,32 +47,14 @@ int main(void){
     char temp;
 
     //declare my index, value, and test variables
-    int i, v, test=0;
+    int i, v;
 
     //scan in the letter
     fscanf(fPtr, "%c", &temp);
 
-    //check to see if the letter is 'I', 'C', 'D', or 'E'
-    if(temp=='I'){
-      //'I'
-      test=1;
-    }
-    else if(temp=='C'){
-      //'C'
-      test=2;
-    }
-    else if(temp=='D'){
-      //'D'
-      test=3;
-    }
-    else{
-      //'E'
-      test=4;
-    }
-
     //if it is of type I, C, D, or E
-    switch(test){
-      case 1:
+    switch(temp){
+      case 'I':
         //if the character is I then read in the key
         fscanf(fPtr, " %d\n", &v);
         //insert new key v
@@ -80,7 +62,7 @@ int main(void){
         //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
-      case 2:
+      case 'C':
         //if the character is C then read in the index and key
         fscanf(fPtr, " %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
@@ -88,7 +70,7 @@ int main(void){
         //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
-      case 3:
+      case 'D':
         //if the character is D then read in the index
         fscanf(fPtr, " %d\n", &i);
         //delete key at index i in the heap
@@ -96,7 +78,7 @@ int main(void){
         //build heap again
         buildMaxHeap(myHeap, heapSize);
         break;
-      case 4:
+      default:
         //if the character is E then read in the newline
         fscanf(fPtr, "\n");
         //delete the root

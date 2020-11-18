@@ -59,32 +59,24 @@ int main(void){
         fscanf(fPtr, " %d\n", &v);
         //insert new key v
         heapSize = insert(myHeap, heapSize, v);
-        //build heap again
-        buildMaxHeap(myHeap, heapSize);
         break;
       case 'C':
         //if the character is C then read in the index and key
         fscanf(fPtr, " %d %d\n", &i, &v);
         //change the key of the heap at index i to a new key
         heapChangeKey(myHeap, heapSize, i-1, v);
-        //build heap again
-        buildMaxHeap(myHeap, heapSize);
         break;
       case 'D':
         //if the character is D then read in the index
         fscanf(fPtr, " %d\n", &i);
         //delete key at index i in the heap
         heapSize = delete(myHeap, heapSize, i-1);
-        //build heap again
-        buildMaxHeap(myHeap, heapSize);
         break;
       default:
         //if the character is E then read in the newline
         fscanf(fPtr, "\n");
         //delete the root
         heapSize = delete(myHeap, heapSize, 0);
-        //build heap again
-        buildMaxHeap(myHeap, heapSize);
         break;
     }
   }
@@ -156,6 +148,9 @@ int insert(int *myHeap, int size, int value){
   //bubble up the heap
   maxHeapify(myHeap, size, size-1);
 
+  //build heap again
+  buildMaxHeap(myHeap, size);
+
   //return the new size
   return size;
 }
@@ -169,6 +164,9 @@ void heapChangeKey(int *myHeap, int size, int target, int value){
 
   //restore the max heap property
   maxHeapify(myHeap, size, target);
+
+  //build heap again
+  buildMaxHeap(myHeap, size);
 }
 
 /*This function takes in a heap, the size of the heap,
@@ -201,6 +199,9 @@ int delete(int *myHeap, int size, int target){
     maxHeapify(myHeap, size, 0);
   }
 
+  //build heap again
+  buildMaxHeap(myHeap, size);
+  
   //return the new size
   return size;
 }
